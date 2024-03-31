@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "941436764205",
+    "project_id": "picture01-38508",
+    "storage_bucket": "picture01-38508.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941436764205:android:2d49579ede32755007b8a4",
+        "android_client_info": {
+          "package_name": "com.example.picutre"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAcRYF5N73ig_FboQTxM0DVDPupHG6xno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
