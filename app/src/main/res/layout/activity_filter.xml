@@ -34,6 +34,13 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
     <CheckBox
         android:id="@+id/chbox_faceOpen"
         android:layout_width="wrap_content"
@@ -45,12 +52,23 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="* 얼굴이 가린 사진도 폴더 생성 됩니다."
+            android:textSize="10sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="4dp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
     <CheckBox
         android:id="@+id/chbox_eyeclosed"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginLeft="50dp"
-        android:text="눈 감은 사진"
+        android:text="눈 감은 사진 / 눈 뜬 사진"
         android:textColor="#000000"
         android:textSize="12sp"
         android:textStyle="bold"/>
@@ -136,7 +154,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
-        android:text="얼굴이 가린 사진"
+        android:text="원하는 날짜"
         android:textColor="#000000"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -171,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="얼굴 가린 사진"
+                android:text="240323"
                 android:textColor="#ffffff"
                 android:textSize="10sp" />
 
@@ -184,6 +202,35 @@
                 android:textSize="8sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/nwh28"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="230820"
+                android:textColor="#ffffff"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="208"
+                android:textColor="#ffffff"
+                android:textSize="8sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <CheckBox
@@ -192,7 +239,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
-        android:text="사진을 찍은 위치마다 분류"
+        android:text="사진을 찍은 위치"
         android:textColor="#000000"
         android:textSize="15sp"
         android:textStyle="bold" />
