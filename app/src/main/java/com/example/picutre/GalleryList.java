@@ -22,11 +22,12 @@ import android.widget.Toast;
 public class GalleryList extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-    String pictureFolderPath = "/storage/pictures/";
+    File file2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+    String[] folders2 = file2.list();
+
     File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-    //File file2 = new File(pictureFolderPath);
     String[] folders = file.list();
-    //String[] folders1 = file2.list();
+
     private ListView listview;
 
     @Override
@@ -42,10 +43,19 @@ public class GalleryList extends AppCompatActivity {
         listview.setAdapter(adapter);
 
         for(int i =0; i< folders.length; i++) {
-            if(folders[i].startsWith(".")) {
+            if(folders[i].startsWith(".") || folders[i].isEmpty() == true) {
                 continue;
             }else {
                 data.add(folders[i]);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+        for(int i=0; i< folders2.length; i++) {
+            if(folders2[i].isEmpty() == true || folders2[i].startsWith(".")) {
+                continue;
+            }else {
+                data.add(folders2[i]);
                 adapter.notifyDataSetChanged();
             }
         }
