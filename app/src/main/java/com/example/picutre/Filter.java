@@ -21,7 +21,7 @@ public class Filter extends AppCompatActivity {
     CheckBox chbox_locate;
     CheckBox chbox_eyeclosed;
     CheckBox chbox_faceOpen;
-    CheckBox chbox_faceClosed;
+    CheckBox chbox_hopeDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +33,24 @@ public class Filter extends AppCompatActivity {
         chbox_locate = findViewById(R.id.chbox_locate);
         chbox_eyeclosed = findViewById(R.id.chbox_eyeclosed);
         chbox_faceOpen = findViewById(R.id.chbox_faceOpen);
-        chbox_faceClosed = findViewById(R.id.chbox_faceClosed);
+        chbox_hopeDate = findViewById(R.id.chbox_hopeDate);
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //분류 필터를 한 가지도 선택하지 않았을 때 토스트 문구 알림
                 if(chbox_faceOpen.isChecked() == false && chbox_eyeclosed.isChecked() == false &&
-                chbox_faceClosed.isChecked() == false && chbox_locate.isChecked() == false) {
+                        chbox_hopeDate.isChecked() == false && chbox_locate.isChecked() == false) {
                     Toast toast = Toast.makeText(getApplicationContext(), "필터를 최소 한 가지 선택해 주세요.",Toast.LENGTH_SHORT);
                     toast.show();
-                }
-                //필터를 한가지라도 선택했을 때 다음 화면으로 넘어갈 수 있도록 함
-                if (chbox_faceOpen.isChecked() == true || chbox_eyeclosed.isChecked() == true ||
-                        chbox_faceClosed.isChecked() == true || chbox_locate.isChecked() == true) {
+                }else if(chbox_hopeDate.isChecked() == true) {
+                    Intent intent = new Intent(Filter.this, Calendar.class);
+                    startActivity(intent);
+                }else if(chbox_faceOpen.isChecked() == true || chbox_eyeclosed.isChecked() == true ||
+                        chbox_locate.isChecked()==true) {
                     Intent intent = new Intent(Filter.this, GalleryList.class);
                     startActivity(intent);
                 }
-
             }
         });
 
@@ -59,6 +59,7 @@ public class Filter extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 실행할 코드 여기에다가 적기
+
             }
         });
         
@@ -79,6 +80,14 @@ public class Filter extends AppCompatActivity {
                     chbox_faceOpen.setChecked(true);
                     // 이후에 실행할 코드 작성
                 }
+            }
+        });
+
+        // 날짜별로 분류
+        chbox_hopeDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
             }
         });
 

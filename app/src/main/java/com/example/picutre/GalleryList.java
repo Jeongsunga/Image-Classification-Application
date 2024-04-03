@@ -1,7 +1,10 @@
 package com.example.picutre;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
@@ -60,10 +63,23 @@ public class GalleryList extends AppCompatActivity {
             }
         }
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 로딩 화면으로 넘어감
+            }
+        });
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
+
+
+
 }
