@@ -217,9 +217,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="230820"
+                android:text="202308219 - \n20230820"
                 android:textColor="#ffffff"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -227,7 +227,7 @@
                 android:layout_marginLeft="30dp"
                 android:text="208"
                 android:textColor="#ffffff"
-                android:textSize="8sp" />
+                android:textSize="6sp" />
         </LinearLayout>
 
     </LinearLayout>

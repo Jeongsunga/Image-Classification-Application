@@ -44,7 +44,7 @@ public class Filter extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "필터를 최소 한 가지 선택해 주세요.",Toast.LENGTH_SHORT);
                     toast.show();
                 }else if(chbox_hopeDate.isChecked() == true) {
-                    Intent intent = new Intent(Filter.this, Calendar.class);
+                    Intent intent = new Intent(Filter.this, DateFilter.class);
                     startActivity(intent);
                 }else if(chbox_faceOpen.isChecked() == true || chbox_eyeclosed.isChecked() == true ||
                         chbox_locate.isChecked()==true) {
