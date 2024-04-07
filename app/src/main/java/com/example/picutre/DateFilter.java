@@ -43,6 +43,8 @@ public class DateFilter extends AppCompatActivity {
     int int_endYear, int_endMonth, int_endDay;
 
     String str_oneYear, str_oneMonth, str_oneDay;
+    String str_startYear, str_startMonth, str_startDay;
+    String str_endYear, str_endMonth, str_endDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,15 +155,28 @@ public class DateFilter extends AppCompatActivity {
                     });
                 }
 
-                    //여기서부터 기간 수정이다!
                 if (checkedId == R.id.during) {
                     group_one.setVisibility(View.INVISIBLE);
                     group_two.setVisibility(View.VISIBLE);
                     warring.setVisibility(View.INVISIBLE);
+                    warring2.setVisibility(View.INVISIBLE);
 
+                    //안되는거 20240401 - 20240501 에러가 안뜸
+                    
                     start_year.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            warring2.setVisibility(View.INVISIBLE);
+                            if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else warring2.setVisibility(View.INVISIBLE);
                         }
 
                         @Override
@@ -170,11 +185,19 @@ public class DateFilter extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String str_startYear = start_year.getText().toString();
+                            str_startYear = start_year.getText().toString();
                             if(str_startYear.length() != 4) warring2.setVisibility(View.VISIBLE);
                             else {
                                 int_startYear = Integer.parseInt(str_startYear);
-                                if( int_startYear > year) warring2.setVisibility(View.VISIBLE);
+                                if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
                                 else warring2.setVisibility(View.INVISIBLE);
 
                             }
@@ -183,6 +206,17 @@ public class DateFilter extends AppCompatActivity {
                     start_month.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            warring2.setVisibility(View.INVISIBLE);
+                            if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else warring2.setVisibility(View.INVISIBLE);
                         }
 
                         @Override
@@ -191,11 +225,19 @@ public class DateFilter extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String str_startMonth = start_month.getText().toString();
+                            str_startMonth = start_month.getText().toString();
                             if(str_startMonth.length() != 2) warring2.setVisibility(View.VISIBLE);
                             else {
                                 int_startMonth = Integer.parseInt(str_startMonth);
-                                if(int_startYear >= year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
                                 else warring2.setVisibility(View.INVISIBLE);
                             }
                         }
@@ -203,6 +245,17 @@ public class DateFilter extends AppCompatActivity {
                     start_day.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            warring2.setVisibility(View.INVISIBLE);
+                            if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else warring2.setVisibility(View.INVISIBLE);
                         }
 
                         @Override
@@ -211,11 +264,19 @@ public class DateFilter extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String str_startDay = start_day.getText().toString();
+                            str_startDay = start_day.getText().toString();
                             if(str_startDay.length() != 2) warring2.setVisibility(View.VISIBLE);
                             else {
                                 int_startDay = Integer.parseInt(str_startDay);
-                                if(int_startYear >= year && int_startMonth >= month && int_startDay > day) warring2.setVisibility(View.VISIBLE);
+                                if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
                                 else warring2.setVisibility(View.INVISIBLE);
 
                             }
@@ -225,7 +286,15 @@ public class DateFilter extends AppCompatActivity {
                     end_year.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                            warring2.setVisibility(View.INVISIBLE);
+                            if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                            else warring2.setVisibility(View.INVISIBLE);
                         }
 
                         @Override
@@ -235,11 +304,17 @@ public class DateFilter extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String str_endYear = end_year.getText().toString();
+                            str_endYear = end_year.getText().toString();
                             if(str_endYear.length() != 4) warring2.setVisibility(View.VISIBLE);
                             else {
                                 int_endYear = Integer.parseInt(str_endYear);
-                                if( int_endYear > year) warring2.setVisibility(View.VISIBLE);
+                                if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
                                 else warring2.setVisibility(View.INVISIBLE);
                             }
                         }
@@ -247,6 +322,15 @@ public class DateFilter extends AppCompatActivity {
                     end_month.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            warring2.setVisibility(View.INVISIBLE);
+                            if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                            else warring2.setVisibility(View.INVISIBLE);
                         }
 
                         @Override
@@ -255,11 +339,17 @@ public class DateFilter extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String str_endMonth = end_month.getText().toString();
+                            str_endMonth = end_month.getText().toString();
                             if(str_endMonth.length() != 2) warring2.setVisibility(View.VISIBLE);
                             else {
                                 int_endMonth = Integer.parseInt(str_endMonth);
-                                if(int_endYear >= year && int_endMonth > month) warring2.setVisibility(View.VISIBLE);
+                                if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
                                 else warring2.setVisibility(View.INVISIBLE);
                             }
                         }
@@ -267,6 +357,15 @@ public class DateFilter extends AppCompatActivity {
                     end_day.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            warring2.setVisibility(View.INVISIBLE);
+                            if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                            else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                            else warring2.setVisibility(View.INVISIBLE);
                         }
 
                         @Override
@@ -275,24 +374,22 @@ public class DateFilter extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String str_endDay = end_day.getText().toString();
+                            str_endDay = end_day.getText().toString();
                             if(str_endDay.length() != 2) warring2.setVisibility(View.VISIBLE);
                             else {
                                 int_endDay = Integer.parseInt(str_endDay);
-                                if(int_endYear >= year && int_endMonth >= month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
+                                // 에러가 뜨는 모든 경우 정리
+                                if(int_startYear > year || int_startYear > int_endYear) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth > month) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth > int_endMonth) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == year && int_startMonth == month && int_startDay == day) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay == int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay > int_endDay) warring2.setVisibility(View.VISIBLE);
+                                else if(int_endYear == year && int_endMonth == month && int_endDay > day) warring2.setVisibility(View.VISIBLE);
                                 else warring2.setVisibility(View.INVISIBLE);
                             }
                         }
                     });
-
-                    // 시작일과 종료일이 같을 때
-                    if(int_startYear == int_endYear && int_startMonth == int_endMonth && int_startDay >= int_endDay) {
-                        warring2.setVisibility(View.VISIBLE);
-                    }else if(int_startYear > int_endYear) { //시작일 년도가 종료일 년도보다 클 때
-                        warring2.setVisibility(View.VISIBLE);
-                    }else if(int_startYear == int_endYear && int_startMonth > int_endMonth) {
-                        warring2.setVisibility(View.VISIBLE);
-                    }
 
                 }else warring2.setVisibility(View.INVISIBLE);
 

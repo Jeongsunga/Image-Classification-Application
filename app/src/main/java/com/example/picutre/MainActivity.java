@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mainPicture;
     private long backBtnTime = 0;
     //final int GET_GALLERY_IMAGE = 200;
-    
+
     //뒤로가기 버튼을 두 번 눌러야 어플 종료
     @Override
     public void onBackPressed() {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mainPicture = findViewById(R.id.mainPicture);
 
         showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
-        
+
         btn_sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

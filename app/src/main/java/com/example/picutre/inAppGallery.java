@@ -1,5 +1,6 @@
 package com.example.picutre;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +10,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class inAppGallery extends AppCompatActivity {
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(inAppGallery.this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -46,18 +46,16 @@ public class GalleryList extends AppCompatActivity {
         listview.setAdapter(adapter);
 
         for(int i =0; i< folders.length; i++) {
-            if(folders[i].startsWith(".") || folders[i].isEmpty() == true) {
-                continue;
-            }else {
+            if(folders[i].startsWith(".") || folders[i].isEmpty()) continue;
+            else {
                 data.add(folders[i]);
                 adapter.notifyDataSetChanged();
             }
         }
 
         for(int i=0; i< folders2.length; i++) {
-            if(folders2[i].isEmpty() == true || folders2[i].startsWith(".")) {
-                continue;
-            }else {
+            if(folders2[i].isEmpty() || folders2[i].startsWith(".")) continue;
+            else {
                 data.add(folders2[i]);
                 adapter.notifyDataSetChanged();
             }
@@ -67,11 +65,10 @@ public class GalleryList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 로딩 화면으로 넘어감
+                Intent intent = new Intent(GalleryList.this, LoadingScreen.class);
+                startActivity(intent);
             }
         });
-
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
