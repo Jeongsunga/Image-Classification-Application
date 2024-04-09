@@ -46,6 +46,8 @@ public class DateFilter extends AppCompatActivity {
     String str_startYear, str_startMonth, str_startDay;
     String str_endYear, str_endMonth, str_endDay;
 
+    LinearLayout group_title1, group_title2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,12 +77,17 @@ public class DateFilter extends AppCompatActivity {
         warring = findViewById(R.id.warring);
         warring2 = findViewById(R.id.warring2);
 
+        group_title1 = findViewById(R.id.group_title1);
+        group_title2 = findViewById(R.id.group_title2);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.oneday) {
                     group_one.setVisibility(View.VISIBLE);
                     group_two.setVisibility(View.INVISIBLE);
+                    group_title1.setVisibility(View.VISIBLE);
+                    group_title2.setVisibility(View.INVISIBLE);
 
                     one_year.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -160,6 +167,8 @@ public class DateFilter extends AppCompatActivity {
                     group_two.setVisibility(View.VISIBLE);
                     warring.setVisibility(View.INVISIBLE);
                     warring2.setVisibility(View.INVISIBLE);
+                    group_title1.setVisibility(View.INVISIBLE);
+                    group_title2.setVisibility(View.VISIBLE);
 
                     //안되는거 20240401 - 20240501 에러가 안뜸
                     
@@ -400,9 +409,9 @@ public class DateFilter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(warring.getVisibility() == View.VISIBLE || warring2.getVisibility() == View.VISIBLE) {
-                    Toast.makeText(DateFilter.this, "날짜 입력을 다시 해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DateFilter.this, "다시 날짜 입력 해주세요.", Toast.LENGTH_SHORT).show();
                 }else if(!oneday.isChecked() && !during.isChecked()) {
-                    Toast.makeText(DateFilter.this, "필터를 선택헤주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DateFilter.this, "필터를 선택해주세요.", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(DateFilter.this, GalleryList.class);
                     startActivity(intent);

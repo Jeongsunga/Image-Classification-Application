@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -15,13 +14,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-
-
 public class LoadingScreen extends AppCompatActivity {
 
     private Button btn_next, btn_test;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +36,6 @@ public class LoadingScreen extends AppCompatActivity {
                 showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
             }
         });
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -76,6 +69,5 @@ public class LoadingScreen extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         builder.show();
     }
-
 }
 

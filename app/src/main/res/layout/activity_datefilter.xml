@@ -34,67 +34,116 @@
             android:layout_marginTop="20dp"/>
 
         <LinearLayout
-            android:id="@+id/group_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="invisible">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/one_year"
+            <LinearLayout
+                android:id="@+id/group_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="YYYY"
+                android:orientation="horizontal"
+                android:visibility="invisible">
+
+                <EditText
+                    android:id="@+id/one_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="YYYY"
+                    android:layout_marginLeft="50dp"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="년"
+                    android:textSize="17sp"
+                    android:textColor="#000000"/>
+
+                <EditText
+                    android:id="@+id/one_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="MM"
+                    android:layout_marginLeft="25dp"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="월"
+                    android:textSize="17sp"
+                    android:textColor="#000000"/>
+
+                <EditText
+                    android:id="@+id/one_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="DD"
+                    android:layout_marginLeft="25dp"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일"
+                    android:textSize="17sp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/warring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* 올바른 형식이 아닙니다."
+                android:textColor="#F50707"
                 android:layout_marginLeft="50dp"
-                android:inputType="number"/>
+                android:visibility="invisible"/>
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/group_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="년"
-                android:textSize="17sp"
-                android:textColor="#000000"/>
+                android:orientation="vertical"
+                android:visibility="invisible">
 
-            <EditText
-                android:id="@+id/one_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="MM"
-                android:layout_marginLeft="25dp"
-                android:inputType="number"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="월"
-                android:textSize="17sp"
-                android:textColor="#000000"/>
+                    <TextView
+                        android:visibility="visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="앨범 이름을 입력해주세요."
+                        android:textColor="#000000"
+                        android:layout_marginLeft="50dp"
+                        android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/one_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="DD"
-                android:layout_marginLeft="25dp"
-                android:inputType="number"/>
+                    <TextView
+                        android:visibility="visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* 미입력시 날짜로 자동 생성 됩니다."
+                        android:textColor="#000000"
+                        android:layout_marginLeft="5sp"
+                        android:textSize="10sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일"
-                android:textSize="17sp"
-                android:textColor="#000000"/>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/oneday_title"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:hint="예시) 베트남 다낭 여행"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/warring"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="* 올바른 형식이 아닙니다."
-            android:textColor="#F50707"
-            android:layout_marginLeft="50dp"
-            android:visibility="invisible"/>
 
         <RadioButton
             android:id="@+id/during"
@@ -103,152 +152,203 @@
             android:text="기간"
             android:textSize="20sp"
             android:layout_marginLeft="35dp"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="20dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            android:id="@+id/group_two">
+            android:orientation="vertical">
 
             <LinearLayout
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="15dp">
+                android:orientation="vertical"
+                android:visibility="invisible"
+                android:id="@+id/group_two">
 
-                <TextView
+                <LinearLayout
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="시작일"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:layout_marginLeft="30dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="15dp">
 
-                <EditText
-                    android:id="@+id/start_year"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="시작일"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="30dp"/>
+
+                    <EditText
+                        android:id="@+id/start_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="YYYY"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="number"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="년"
+                        android:textSize="17sp"
+                        android:textColor="#000000"/>
+
+                    <EditText
+                        android:id="@+id/start_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="MM"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="number"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="월"
+                        android:textSize="17sp"
+                        android:textColor="#000000"/>
+
+                    <EditText
+                        android:id="@+id/start_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="DD"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="number"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일"
+                        android:textSize="17sp"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="YYYY"
-                    android:layout_marginLeft="25dp"
-                    android:inputType="number"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="년"
-                    android:textSize="17sp"
-                    android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="종료일"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_marginLeft="30dp"/>
 
-                <EditText
-                    android:id="@+id/start_month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="MM"
-                    android:layout_marginLeft="25dp"
-                    android:inputType="number"/>
+                    <EditText
+                        android:id="@+id/end_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="YYYY"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="월"
-                    android:textSize="17sp"
-                    android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="년"
+                        android:textSize="17sp"
+                        android:textColor="#000000"/>
 
-                <EditText
-                    android:id="@+id/start_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="DD"
-                    android:layout_marginLeft="25dp"
-                    android:inputType="number"/>
+                    <EditText
+                        android:id="@+id/end_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="MM"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="일"
-                    android:textSize="17sp"
-                    android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="월"
+                        android:textSize="17sp"
+                        android:textColor="#000000"/>
+
+                    <EditText
+                        android:id="@+id/end_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="DD"
+                        android:layout_marginLeft="25dp"
+                        android:inputType="number"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일"
+                        android:textSize="17sp"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-
+            <TextView
+                android:id="@+id/warring2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="15dp">
+                android:text="* 올바른 형식이 아닙니다."
+                android:textColor="#F50707"
+                android:layout_marginLeft="50dp"
+                android:visibility="invisible"/>
 
-                <TextView
+            <LinearLayout
+                android:id="@+id/group_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="종료일"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:layout_marginLeft="30dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
 
-                <EditText
-                    android:id="@+id/end_year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="YYYY"
-                    android:layout_marginLeft="25dp"
-                    android:inputType="number"/>
+                    <TextView
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="년"
-                    android:textSize="17sp"
-                    android:textColor="#000000"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="앨범 이름을 입력해주세요."
+                        android:textColor="#000000"
+                        android:layout_marginLeft="50dp"
+                        android:textSize="15sp"/>
 
-                <EditText
-                    android:id="@+id/end_month"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="MM"
-                    android:layout_marginLeft="25dp"
-                    android:inputType="number"/>
+                    <TextView
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="월"
-                    android:textSize="17sp"
-                    android:textColor="#000000"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* 미입력시 날짜로 자동 생성 됩니다."
+                        android:textColor="#000000"
+                        android:layout_marginLeft="5sp"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
 
                 <EditText
-                    android:id="@+id/end_day"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/period_title"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="DD"
-                    android:layout_marginLeft="25dp"
-                    android:inputType="number"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="일"
-                    android:textSize="17sp"
-                    android:textColor="#000000"/>
+                    android:layout_marginLeft="50dp"
+                    android:hint="예시) COMEBACK AGAIN 1"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/warring2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="* 올바른 형식이 아닙니다."
-            android:textColor="#F50707"
-            android:layout_marginLeft="50dp"
-            android:visibility="invisible"/>
+
 
     </RadioGroup>
 
@@ -258,7 +358,7 @@
         android:layout_height="wrap_content"
         android:text="다음"
         android:layout_gravity="right"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="25dp"/>
 
 
