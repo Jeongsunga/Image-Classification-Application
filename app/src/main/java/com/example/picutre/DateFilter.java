@@ -48,6 +48,10 @@ public class DateFilter extends AppCompatActivity {
 
     LinearLayout group_title1, group_title2;
 
+    EditText oneday_title, period_title;
+    String str_onddayTitle, str_periodTitle;
+    int titleNum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +83,9 @@ public class DateFilter extends AppCompatActivity {
 
         group_title1 = findViewById(R.id.group_title1);
         group_title2 = findViewById(R.id.group_title2);
+
+        oneday_title = findViewById(R.id.oneday_title);
+        period_title = findViewById(R.id.period_title);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -160,6 +167,11 @@ public class DateFilter extends AppCompatActivity {
                             }
                         }
                     });
+
+                    str_onddayTitle = oneday_title.getText().toString();
+                    if(str_onddayTitle.isEmpty()) titleNum = 0;  //사진 날짜로 폴더 생성
+                    else titleNum = 1; // 사용자가 입력한 폴더 이름 사용
+
                 }
 
                 if (checkedId == R.id.during) {
@@ -401,6 +413,10 @@ public class DateFilter extends AppCompatActivity {
                     });
 
                 }else warring2.setVisibility(View.INVISIBLE);
+
+                str_periodTitle = period_title.getText().toString();
+                if(str_periodTitle.isEmpty()) titleNum = 0;
+                else titleNum = 1;
 
             }
         });
