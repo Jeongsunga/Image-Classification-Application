@@ -2,7 +2,7 @@ package com.example.picutre;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,6 +23,8 @@ public class Filter extends AppCompatActivity {
     CheckBox chbox_faceOpen;
     CheckBox chbox_hopeDate;
 
+    private static final int REQUEST_GALLERY = 1001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,16 +43,40 @@ public class Filter extends AppCompatActivity {
                 //분류 필터를 한 가지도 선택하지 않았을 때 토스트 문구 알림
                 if(chbox_faceOpen.isChecked() == false && chbox_eyeclosed.isChecked() == false &&
                         chbox_hopeDate.isChecked() == false && chbox_locate.isChecked() == false) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "필터를 최소 한 가지 선택해 주세요.",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "필터를 한 가지 선택해 주세요.",Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(chbox_hopeDate.isChecked() == true) {
+                }
+                /* 
+                선택할 수 있는 필터 
+                1. 얼굴 보이기
+                2. 얼굴 보이기 & 눈 뜨기
+                3. 날짜
+                4. 위치
+                 */
+                if(chbox_faceOpen.isChecked() == true && (chbox_locate.isChecked() == true || chbox_hopeDate.isChecked() == true)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "필터를 한 가지만 선택해 주세요.",Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(chbox_hopeDate.isChecked() == true && (chbox_faceOpen.isChecked() == true || chbox_locate.isChecked()==true)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "필터를 한 가지만 선택해 주세요.",Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(chbox_locate.isChecked()==true && (chbox_faceOpen.isChecked()==true || chbox_hopeDate.isChecked()==true)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "필터를 한 가지만 선택해 주세요.",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                //얼굴 보이기 or (얼굴 보이기 & 눈 뜨기) 필터만 선택되었을 때
+                if(chbox_faceOpen.isChecked() == true && chbox_hopeDate.isChecked() == false && chbox_locate.isChecked() == false) {
+                    openGallery();
+                } // 날짜 필터만 선택되었을 때
+                else if(chbox_hopeDate.isChecked() == true && chbox_faceOpen.isChecked() == false && chbox_locate.isChecked() == false) {
                     Intent intent = new Intent(Filter.this, DateFilter.class);
                     startActivity(intent);
-                }else if(chbox_faceOpen.isChecked() == true || chbox_eyeclosed.isChecked() == true ||
-                        chbox_locate.isChecked()==true) {
+                }
+                // 위치 필터만 선택되었을 때
+                else if(chbox_locate.isChecked() == true && chbox_faceOpen.isChecked()==false && chbox_hopeDate.isChecked() == false) {
                     Intent intent = new Intent(Filter.this, GalleryList.class);
                     startActivity(intent);
                 }
+
             }
         });
 
@@ -96,5 +122,10 @@ public class Filter extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_GALLERY);
     }
 }

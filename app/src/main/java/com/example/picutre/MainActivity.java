@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn_sort;
     private Button btn_inappGallery;
-    private ImageView mainPicture;
+
     private long backBtnTime = 0;
     //final int GET_GALLERY_IMAGE = 200;
+    private int permission = 0;
 
     //뒤로가기 버튼을 두 번 눌러야 어플 종료
     @Override
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_sort = findViewById(R.id.btn_sort);
         btn_inappGallery = findViewById(R.id.btn_inappGallery);
-        mainPicture = findViewById(R.id.mainPicture);
+
 
         showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
 
@@ -77,25 +78,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialogAutomatically() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("권한 허용");
-        builder.setMessage("해당 앱에서 기기의 사진 및 미디어에 접근을 허용하시겠습니까?");
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setCancelable(false); // 뒤로가기 버튼으로 다이얼로그 종료 못함
-        builder.setPositiveButton("허용", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("거부", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                ActivityCompat.finishAffinity(MainActivity.this);
-                System.exit(0);
-            }
-        });
-        AlertDialog dialog = builder.create();
-        builder.show();
+        if(permission == 0) {
+            builder.setTitle("권한 허용");
+            builder.setMessage("해당 앱에서 기기의 사진 및 미디어에 접근을 허용하시겠습니까?");
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setCancelable(false); // 뒤로가기 버튼으로 다이얼로그 종료 못함
+            builder.setPositiveButton("허용", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    permission = 1;
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("거부", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    ActivityCompat.finishAffinity(MainActivity.this);
+                    System.exit(0);
+                }
+            });
+            AlertDialog dialog = builder.create();
+            builder.show();
+        }
     }
 }

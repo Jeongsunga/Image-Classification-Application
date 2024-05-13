@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Picutre"
         tools:targetApi="31">
         <activity
+            android:name=".DatePickFilter"
+            android:exported="false" />
+        <activity
             android:name=".LoadingScreen"
             android:exported="false" />
         <activity

@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 public class GalleryList extends AppCompatActivity {
 
+
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     File file2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
     String[] folders2 = file2.list();
@@ -33,11 +34,14 @@ public class GalleryList extends AppCompatActivity {
 
     private ListView listview;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_gallery_list);
+
 
         listview = findViewById(R.id.listview);
         List<String> data = new ArrayList<>();
@@ -69,6 +73,7 @@ public class GalleryList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
