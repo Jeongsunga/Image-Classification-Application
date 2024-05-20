@@ -75,9 +75,8 @@ public class Filter extends AppCompatActivity {
                 }
                 //얼굴 보이기 or (얼굴 보이기 & 눈 뜨기) 필터만 선택되었을 때
                 if(chbox_faceOpen.isChecked() == true && chbox_hopeDate.isChecked() == false && chbox_locate.isChecked() == false) {
-                    openGallery();
-
-
+                    Intent intent = new Intent(Filter.this, GalleryList.class);
+                    startActivity(intent);
                 } // 날짜 필터만 선택되었을 때
                 else if(chbox_hopeDate.isChecked() == true && chbox_faceOpen.isChecked() == false && chbox_locate.isChecked() == false) {
                     Intent intent = new Intent(Filter.this, DateFilter.class);
@@ -120,7 +119,11 @@ public class Filter extends AppCompatActivity {
                 }
                 //눈 감은 사진이 체크되어 있으면 얼굴이 보이는 사진 체크는 무조건 True가 되도록 함
                 if(chbox_eyeclosed.isChecked() == true) {
-                    chbox_faceOpen.setChecked(true);
+                    chbox_faceOpen.setEnabled(false);
+                }
+                //눈 감은 사진이 체크가 해제되면 얼굴 보이는 사진 값을 바꿀 수 있도록 한다.
+                if(chbox_eyeclosed.isChecked() == false) {
+                    chbox_faceOpen.setEnabled(true);
                 }
             }
         });
