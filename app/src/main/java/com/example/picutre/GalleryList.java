@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,24 +46,27 @@ public class GalleryList extends AppCompatActivity {
 
 
         listview = findViewById(R.id.listview);
-        List<String> data = new ArrayList<>();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        listview.setAdapter(adapter);
+        List<String> data1 = new ArrayList<>();
+
+
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data1);
+
+        listview.setAdapter(adapter1);
 
         for(int i =0; i< folders.length; i++) {
             if(folders[i].startsWith(".") || folders[i].isEmpty()) continue;
             else {
-                data.add(folders[i]);
-                adapter.notifyDataSetChanged();
+                data1.add(folders[i]);
+                adapter1.notifyDataSetChanged();
             }
         }
 
         for(int i=0; i< folders2.length; i++) {
             if(folders2[i].isEmpty() || folders2[i].startsWith(".")) continue;
             else {
-                data.add(folders2[i]);
-                adapter.notifyDataSetChanged();
+                data1.add(folders2[i]);
+                adapter1.notifyDataSetChanged();
             }
         }
 
@@ -73,6 +78,43 @@ public class GalleryList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+/*
+        ArrayList<Data> list = new ArrayList<>();
+        for(int i = 0; i<folders.length; i++) {
+            list.add(new Data(folders[i], i));
+        }
+        for(int i=0; i<folders2.length; i++) {
+            list.add(new Data(folders2[i], i));
+        }
+
+        class listAdapter extends BaseAdapter {
+            List<Data> lists;
+
+            public listAdapter(List<Data> lists) {
+                this.lists = lists;
+            }
+
+            @Override
+            public int getCount() {
+                return lists.size();
+            }
+            public Object getItem(int i) {
+                return lists.get(i);
+            }
+
+            @Override
+            public long getItemId(int i) {
+                return i;
+            }
+
+            @Override
+            public View getView(int i, ViewGroup viewGroup) {
+                return null;
+            }
+        }
+        */
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

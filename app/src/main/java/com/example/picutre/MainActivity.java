@@ -3,11 +3,15 @@ package com.example.picutre;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import android.Manifest;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +22,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_ALLOWED = "isAllowed";
 
     private Button btn_sort;
     private Button btn_inappGallery;
@@ -46,11 +54,23 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isAllowed = preferences.getBoolean(PREF_ALLOWED, false);
+
         btn_sort = findViewById(R.id.btn_sort);
         btn_inappGallery = findViewById(R.id.btn_inappGallery);
 
+        if (isAllowed) {
+            // 권한이 이미 허용된 경우, 메인 콘텐츠를 로드합니다.
+            //loadMainContent();
+        } else {
+            // 권한을 요청합니다.
+            //showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
+            showPermissionDialog();
+        }
 
-        showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
+
+
 
         btn_sort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +96,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void showPermissionDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("미디어 접근 권한 요청")
+                .setMessage("앱에서 미디어에 접근하려면 권한이 필요합니다. 권한을 허용하시겠습니까?")
+                .setPositiveButton("허용", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestMediaPermissions(); // 미디어 접근 허용하도록 하기
+                    }
+                })
+                .setNegativeButton("거절", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "권한이 거절되었습니다. 앱을 종료합니다.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+/*
     private void showDialogAutomatically() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         if(permission == 0) {
@@ -88,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     permission = 1;
                     dialog.dismiss();
+                    //미디어 허용 하는 코드 작성
+                    requestMediaPermissions();
                 }
             });
             builder.setNegativeButton("거부", new DialogInterface.OnClickListener() {
@@ -101,5 +144,41 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             builder.show();
         }
+    }*/
+
+    private void requestMediaPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(new String[]{
+                    Manifest.permission.READ_MEDIA_IMAGES,
+
+            }, PERMISSION_REQUEST_CODE);
+        } else {
+            requestPermissions(new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            }, PERMISSION_REQUEST_CODE);
+        }
     }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            boolean permissionGranted = true;
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    permissionGranted = false;
+                    break;
+                }
+            }
+            if (permissionGranted) {
+                SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(PREF_ALLOWED, true);
+                editor.apply();
+            }else {
+                Toast.makeText(this, "권한이 거절되었습니다. 앱을 종료합니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
 }

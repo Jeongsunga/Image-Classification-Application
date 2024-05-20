@@ -1,19 +1,24 @@
 package com.example.picutre;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
 
 public class Filter extends AppCompatActivity {
 
@@ -23,7 +28,11 @@ public class Filter extends AppCompatActivity {
     CheckBox chbox_faceOpen;
     CheckBox chbox_hopeDate;
 
+    //RadioButton radiobtn_all;
+
     private static final int REQUEST_GALLERY = 1001;
+    private static final int REQUEST_CODE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,7 @@ public class Filter extends AppCompatActivity {
         chbox_eyeclosed = findViewById(R.id.chbox_eyeclosed);
         chbox_faceOpen = findViewById(R.id.chbox_faceOpen);
         chbox_hopeDate = findViewById(R.id.chbox_hopeDate);
+        //radiobtn_all = findViewById(R.id.radiobtn_all);
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +76,8 @@ public class Filter extends AppCompatActivity {
                 //얼굴 보이기 or (얼굴 보이기 & 눈 뜨기) 필터만 선택되었을 때
                 if(chbox_faceOpen.isChecked() == true && chbox_hopeDate.isChecked() == false && chbox_locate.isChecked() == false) {
                     openGallery();
+
+
                 } // 날짜 필터만 선택되었을 때
                 else if(chbox_hopeDate.isChecked() == true && chbox_faceOpen.isChecked() == false && chbox_locate.isChecked() == false) {
                     Intent intent = new Intent(Filter.this, DateFilter.class);
@@ -106,6 +118,10 @@ public class Filter extends AppCompatActivity {
                     chbox_faceOpen.setChecked(true);
                     // 이후에 실행할 코드 작성
                 }
+                //눈 감은 사진이 체크되어 있으면 얼굴이 보이는 사진 체크는 무조건 True가 되도록 함
+                if(chbox_eyeclosed.isChecked() == true) {
+                    chbox_faceOpen.setChecked(true);
+                }
             }
         });
 
@@ -124,8 +140,34 @@ public class Filter extends AppCompatActivity {
         });
     }
 
-    private void openGallery() {
+    public void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // 여러 이미지 선택 허용
         startActivityForResult(intent, REQUEST_GALLERY);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //radiobtn_all.setVisibility(View.VISIBLE);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            ArrayList<Uri> selectedImages = new ArrayList<>();
+
+            if(data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for(int i = 0; i < count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    selectedImages.add(imageUri);
+                }
+            } else {
+                Uri imageUri = data.getData();
+                selectedImages.add(imageUri);
+            }
+
+            // 선택한 이미지들에 대한 작업 수행
+            // 이후 필요에 따라 선택한 이미지들에 대한 추가적인 처리를 수행할 수 있습니다.
+        }
+    }
+
 }

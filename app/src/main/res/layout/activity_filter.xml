@@ -8,10 +8,23 @@
     tools:context=".Filter"
     android:orientation="vertical">
 
+    <RadioButton
+        android:id="@+id/radiobtn_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전체 선택"
+        android:textStyle="bold"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:layout_margin="20dp"
+        />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+
 
         <TextView
             android:layout_width="match_parent"
