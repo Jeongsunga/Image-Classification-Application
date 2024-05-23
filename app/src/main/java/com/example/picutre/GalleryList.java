@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,24 +52,47 @@ public class GalleryList extends AppCompatActivity {
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-                MediaStore.Images.Media.DATA
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media.DATE_TAKEN
         };
-        String orderBy = MediaStore.Images.Media.DATE_TAKEN + " DESC";
+        //String orderBy = MediaStore.Images.Media.DATE_TAKEN + " DESC";
 
-        Cursor cursor = contentResolver.query(uri, projection, null, null, orderBy);
+        Cursor cursor = contentResolver.query(uri, projection, null, null, null);
         if (cursor != null) {
+            Map<String, Integer> folderCountMap = new HashMap<>();
             Map<String, String> folderMap = new LinkedHashMap<>();
+            //Map<String, Long> folderDateMap = new HashMap<>();
+
             while (cursor.moveToNext()) {
                 String folderName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                 String firstImagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                //long dateTaken = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN));
                 if (!folderMap.containsKey(folderName)) {
                     folderMap.put(folderName, firstImagePath);
+                    //folderDateMap.put(folderName, dateTaken);
                 }
+
+                //각 폴더별 사진 수 세기
+                if(folderCountMap.containsKey(folderName)) {
+                    int count = folderCountMap.get(folderName);
+                    folderCountMap.put(folderName, count+1);
+                }else {
+                    folderCountMap.put(folderName, 1);
+                    folderMap.put(folderName, firstImagePath);
+                }
+
             }
             cursor.close();
 
-            for (Map.Entry<String, String> entry : folderMap.entrySet()) {
-                folderItems.add(new FolderItem(entry.getKey(), entry.getValue()));
+            //for (Map.Entry<String, String> entry : folderMap.entrySet()) {
+            //    folderItems.add(new FolderItem(entry.getKey(), entry.getValue()));
+            //}
+
+            for(Map.Entry<String, Integer> entry : folderCountMap.entrySet()) {
+                String folderName = entry.getKey();
+                int count = entry.getValue();
+                String firstImagePath = folderMap.get(folderName);
+                folderItems.add(new FolderItem(folderName, firstImagePath, count));
             }
 
             adapter = new FolderAdapter(folderItems);

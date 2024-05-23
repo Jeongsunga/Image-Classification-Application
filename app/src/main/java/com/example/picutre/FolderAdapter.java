@@ -21,6 +21,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
     private List<FolderItem> folderItems;
     private Context context;
 
+
     public FolderAdapter(List<FolderItem> folderItems) {
         this.folderItems = folderItems;
     }
@@ -38,6 +39,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
     public void onBindViewHolder(@NonNull FolderAdapter.FolderViewHolder holder, int position) {
         FolderItem folderItem = folderItems.get(position);
         holder.folderName.setText(folderItem.getFolderName());
+        holder.count.setText(String.valueOf(folderItem.getCount()));
         Glide.with(context).load(folderItem.getFirstImagePath()).into(holder.folderImage);
 
 
@@ -51,11 +53,13 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
     static class FolderViewHolder extends RecyclerView.ViewHolder {
         TextView folderName;
         ImageView folderImage;
+        TextView count;
 
         public FolderViewHolder(@NonNull View itemView) {
             super(itemView);
             folderName = itemView.findViewById(R.id.name);
             folderImage = itemView.findViewById(R.id.imageview);
+            count = itemView.findViewById(R.id.count);
         }
     }
 }

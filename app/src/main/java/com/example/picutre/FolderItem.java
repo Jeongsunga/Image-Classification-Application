@@ -3,10 +3,12 @@ package com.example.picutre;
 public class FolderItem {
     private String folderName; //폴더 이름
     private String firstImagePath; //사진 경로로 저장
+    private int count;
 
-    public FolderItem(String folderName, String firstImagePath) {
+    public FolderItem(String folderName, String firstImagePath, int count) {
         this.folderName =  folderName;
         this.firstImagePath = firstImagePath;
+        this.count = count;
     }
 
     public String getFolderName() {
@@ -23,5 +25,13 @@ public class FolderItem {
 
     public void setFirstImagePath(String firstImagePath) {
         this.firstImagePath = firstImagePath;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
