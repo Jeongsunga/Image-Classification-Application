@@ -1,6 +1,8 @@
 package com.example.picutre;
 
+import android.content.ContentResolver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.activity.EdgeToEdge;
@@ -11,18 +13,19 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GalleryList extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION = 100;
     private RecyclerView recyclerView;
-    private listAdaptor listAdaptor;
-    private List<String> folderNames;
-
-
+    private FolderAdapter adapter;
+    private List<FolderItem> folderItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +35,7 @@ public class GalleryList extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recylcerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        folderNames = new ArrayList<>();
-        listAdaptor = new listAdaptor(folderNames);
-        recyclerView.setAdapter(listAdaptor);
+        folderItems = new ArrayList<>();
 
         loadGalleryFolders();
 
@@ -46,23 +47,32 @@ public class GalleryList extends AppCompatActivity {
     }
 
     private void loadGalleryFolders() {
-        HashSet<String> folderSet = new HashSet<>();
-        String[] projection = {MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-        Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                projection, null, null, null);
+        ContentResolver contentResolver = getContentResolver();
+        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        String[] projection = {
+                MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+                MediaStore.Images.Media.DATA
+        };
+        String orderBy = MediaStore.Images.Media.DATE_TAKEN + " DESC";
 
+        Cursor cursor = contentResolver.query(uri, projection, null, null, orderBy);
         if (cursor != null) {
-            int folderNameIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+            Map<String, String> folderMap = new LinkedHashMap<>();
             while (cursor.moveToNext()) {
-                String folderName = cursor.getString(folderNameIndex);
-                folderSet.add(folderName);
+                String folderName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
+                String firstImagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                if (!folderMap.containsKey(folderName)) {
+                    folderMap.put(folderName, firstImagePath);
+                }
             }
             cursor.close();
+
+            for (Map.Entry<String, String> entry : folderMap.entrySet()) {
+                folderItems.add(new FolderItem(entry.getKey(), entry.getValue()));
+            }
+
+            adapter = new FolderAdapter(folderItems);
+            recyclerView.setAdapter(adapter);
         }
-
-        folderNames.clear();
-        folderNames.addAll(folderSet);
-        listAdaptor.notifyDataSetChanged();
     }
-
 }
