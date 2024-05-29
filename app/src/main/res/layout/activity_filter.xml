@@ -87,37 +87,38 @@
 
 
     <LinearLayout
-        android:layout_width="330dp"
-        android:layout_gravity="center"
+        android:layout_width="280dp"
         android:layout_height="100dp"
-        android:background="#6750A3" >
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/shape">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:text="예시"
-            android:textColor="#ffffff"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"/>
+            android:textColor="#000000" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/closedeye"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
+                android:src="@drawable/closedeye" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="눈 감은 사진"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="10sp" />
 
             <TextView
@@ -125,36 +126,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="96"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="8sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/openeye"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
+                android:src="@drawable/openeye" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="20dp"
                 android:text="눈 뜬 사진"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="10sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:text="185"
-                android:textColor="#ffffff"
+
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -172,37 +173,38 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="330dp"
-        android:layout_gravity="center"
+        android:layout_width="280dp"
         android:layout_height="100dp"
-        android:background="#6750A3" >
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/shape">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="예시"
-            android:textColor="#ffffff"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+
+            android:layout_marginTop="15dp"
+            android:text="예시" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/noface"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
+                android:src="@drawable/noface" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="240323"
-                android:textColor="#ffffff"
+
                 android:textSize="10sp" />
 
             <TextView
@@ -210,37 +212,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="37"
-                android:textColor="#ffffff"
+
                 android:textSize="8sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/nwh28"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
+                android:src="@drawable/nwh28" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="COMEBACK AGAIN"
-                android:textColor="#ffffff"
+                android:layout_marginLeft="20dp"
+                android:text="COMEBACK\nAGAIN"
+
                 android:textSize="7sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:text="208"
-                android:textColor="#ffffff"
-                android:textSize="6sp" />
+
+                android:textSize="7sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -257,18 +259,19 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="330dp"
+        android:layout_width="280dp"
         android:layout_gravity="center"
         android:layout_height="100dp"
-        android:background="#6750A3" >
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/shape" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="예시"
-            android:textColor="#ffffff"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"/>
+
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -277,25 +280,25 @@
 
             <ImageView
                 android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="30dp"
+                android:layout_height="63dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/seoul" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="Seoul"
-                android:textColor="#ffffff"
+
                 android:textSize="10sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="266"
-                android:textColor="#ffffff"
+
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -309,22 +312,22 @@
                 android:layout_height="60dp"
                 android:src="@drawable/busan"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="Busan"
-                android:textColor="#ffffff"
+
                 android:textSize="10sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="798"
-                android:textColor="#ffffff"
+
                 android:textSize="8sp" />
         </LinearLayout>
 
@@ -338,22 +341,22 @@
                 android:layout_height="60dp"
                 android:src="@drawable/milyang"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="Milyang"
-                android:textColor="#ffffff"
+
                 android:textSize="10sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="10dp"
                 android:text="141"
-                android:textColor="#ffffff"
+
                 android:textSize="8sp" />
         </LinearLayout>
 

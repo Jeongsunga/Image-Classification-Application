@@ -70,7 +70,16 @@ public class DateFilter extends AppCompatActivity {
                             MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.datePicker()
                                     .setTitleText("Date Picker")
                                     .setSelection(today).build(); // 오늘 날짜 셋팅
-                            materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+                            materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER"); //여기까진 잘됨
+                            if (selectedCalendar.before(currentCalendar)){
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+                                Date date = new Date();
+                                date.setTime(selection);
+
+                                String dateString = simpleDateFormat.format(date);
+
+                                tv_date.setText(dateString);
+                            }
 
                             // 당일 까지 선택 가능
                         }else if (selectedCalendar.before(currentCalendar)){
@@ -108,6 +117,7 @@ public class DateFilter extends AppCompatActivity {
                                 selectedCalendar2.setTimeInMillis(selection.second);
                                 Calendar currentCalendar = Calendar.getInstance();
 
+                                //양 일이 같은 날짜일 때
                                 if(selectedCalendar1.equals(selectedCalendar2) ) {
                                     Toast toast = Toast.makeText(getApplicationContext(), "같은 날짜는 선택 불가합니다.\n다시 선택해 주세요.",Toast.LENGTH_SHORT);
                                     toast.show();
@@ -116,6 +126,23 @@ public class DateFilter extends AppCompatActivity {
                                             .setTitleText("Date Picker").build();
 
                                     materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+                                    if(!selectedCalendar1.equals(selectedCalendar2)) {
+                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+                                        Date date1 = new Date();
+                                        Date date2 = new Date();
+
+                                        date1.setTime(selection.first);
+                                        date2.setTime(selection.second);
+
+                                        String dateString1 = simpleDateFormat.format(date1);
+                                        String dateString2 = simpleDateFormat.format(date2);
+
+                                        tv_date.setText("시작일 : " + dateString1 + "\n" + "마감일 : " + dateString2);
+                                    }
+
+
+                                //시작일이나 마감일이 미래일 때
                                 }else if(selectedCalendar1.after(currentCalendar) || selectedCalendar2.after(currentCalendar)) {
                                     Toast toast = Toast.makeText(getApplicationContext(), "미래 날짜는 선택 불가합니다.\n다시 선택해 주세요.",Toast.LENGTH_SHORT);
                                     toast.show();
@@ -124,6 +151,20 @@ public class DateFilter extends AppCompatActivity {
                                             .setTitleText("Date Picker").build();
 
                                     materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+                                    if(!(selectedCalendar1.after(currentCalendar) || selectedCalendar2.after(currentCalendar))) {
+                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+                                        Date date1 = new Date();
+                                        Date date2 = new Date();
+
+                                        date1.setTime(selection.first);
+                                        date2.setTime(selection.second);
+
+                                        String dateString1 = simpleDateFormat.format(date1);
+                                        String dateString2 = simpleDateFormat.format(date2);
+
+                                        tv_date.setText("시작일 : " + dateString1 + "\n" + "마감일 : " + dateString2);
+                                    }
                                 }
 
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");

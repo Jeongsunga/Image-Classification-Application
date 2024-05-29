@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isAllowed) {
             // 권한이 이미 허용된 경우, 메인 콘텐츠를 로드
-            //showPermissionDialog();  실행이 잘 되는지만 확인하기 위해 기입해놓은 코드, 잘 동작됨을 확인한 이후에는 지울 예정
+            //showPermissionDialog();  //실행이 잘 되는지만 확인하기 위해 기입해놓은 코드, 잘 동작됨을 확인한 이후에는 지울 예정
         } else {
             // 권한을 요청합니다.
             //showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드

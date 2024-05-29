@@ -84,10 +84,6 @@ public class GalleryList extends AppCompatActivity {
             }
             cursor.close();
 
-            //for (Map.Entry<String, String> entry : folderMap.entrySet()) {
-            //    folderItems.add(new FolderItem(entry.getKey(), entry.getValue()));
-            //}
-
             for(Map.Entry<String, Integer> entry : folderCountMap.entrySet()) {
                 String folderName = entry.getKey();
                 int count = entry.getValue();
