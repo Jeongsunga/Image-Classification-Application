@@ -33,6 +33,8 @@ import androidx.core.content.ContextCompat;
 import androidx.loader.content.CursorLoader;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LoadingScreen extends AppCompatActivity {
 
@@ -64,8 +66,10 @@ public class LoadingScreen extends AppCompatActivity {
         folderPath = getIntent().getStringExtra("folderPath");
         if (folderPath != null) {
             uploadImages(folderPath);
-            //showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
+
         }
+
+        showDialogAutomatically(); // 다이얼로그 자동으로 띄우는 메소드
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -95,7 +99,7 @@ public class LoadingScreen extends AppCompatActivity {
 
         }
     }
-    /*
+
     private void showDialogAutomatically() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoadingScreen.this);
         //builder.setTitle("권한 허");
@@ -120,7 +124,7 @@ public class LoadingScreen extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         builder.show();
-    }*/
+    }
 
     private void requestMediaPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -141,7 +145,6 @@ public class LoadingScreen extends AppCompatActivity {
 
         // 디렉터리 존재 여부 확인
         if (!folder.exists() || !folder.isDirectory()) {
-            // 여기가 진짜 문제였음...
             Log.e(TAG, "디렉터리가 존재하지 않거나 디렉터리가 아닙니다: " + folderPath);
             return;
         }
@@ -167,18 +170,26 @@ public class LoadingScreen extends AppCompatActivity {
         }
         return false;
     }
-
+    
     private void uploadImageToFirebase(File file) {
+
         Uri fileUri = Uri.fromFile(file);
-        StorageReference fileReference = storageReference.child("images/" + file.getName());
+
+        String folderName = file.getParent().toString();
+        int lastSlashIndex = folderName.lastIndexOf('/');
+        // 마지막 슬래시 다음 문자열을 추출한다 -> 파이어베이스 스토리지 저장 폴더명
+        String lastSegment = folderName.substring(lastSlashIndex + 1);
+
+        //StorageReference fileReference = storageReference.child("images/" + file.getName());
+        Log.d(TAG, "파이어베이스 저장 폴더 이름 : " + lastSegment);
+        StorageReference fileReference = storageReference.child(lastSegment + "/" + file.getName());
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
-        progressDialog.show();
-
-        //Toast.makeText(LoadingScreen.this, "분류 완료되었습니다.", Toast.LENGTH_LONG).show();
+//        progressDialog.show();
 
         UploadTask uploadTask = fileReference.putFile(fileUri);
+
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             progressDialog.dismiss();
             //Log.d(TAG, "Image uploaded successfully: " + file.getName());

@@ -110,49 +110,6 @@ public class GalleryList extends AppCompatActivity implements OnItemClickListene
         }
     }
 
-    /*
-    private void uploadFolderToFirebase(File folder) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReference();
-
-        File[] files = folder.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile() && isImageFile(file)) {
-                    Uri fileUri = Uri.fromFile(file);
-                    StorageReference fileReference = storageReference.child("images/" + file.getName());
-
-                    fileReference.putFile(fileUri)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    // 업로드 성공
-                                    Log.d("Firebase", "Upload success: " + file.getName());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // 업로드 실패
-                                    Log.e("Firebase", "Upload failed: " + file.getName(), e);
-                                }
-                            });
-                }
-            }
-        }
-    }
-
-    private boolean isImageFile(File file) {
-        String[] imageExtensions = {"jpg", "jpeg", "png"};
-        for (String extension : imageExtensions) {
-            if (file.getName().toLowerCase().endsWith(extension)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    */
-
     @Override
     public void onItemClick(String folderPath) {
         Intent intent = new Intent(GalleryList.this, LoadingScreen.class);

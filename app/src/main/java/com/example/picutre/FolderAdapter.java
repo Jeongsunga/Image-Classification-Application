@@ -71,10 +71,12 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, LoadingScreen.class); //로딩 스크린으로 화면 이동
-            //String folderPath = new File(firstImagePath).getParent(); // 이미지 경로에서 폴더 경로 추출
-            intent.putExtra("folderPath", folderItem.getFolderName()); // folderPath 라는 문자열에 폴더 이름을 담아서 화면 넘어갈 때 같이 넘김
-            //intent.putExtra("folderPath", folderPath);
-            //Log.d(TAG, "folderPath : " +  folderPath);
+            String folderPath = new File(folderItem.getFirstImagePath()).getParent(); // 이미지 경로에서 폴더 경로 추출
+            //intent.putExtra("folderPath", folderItem.getFolderName());
+            //Log.d(TAG, "경로가 넘어가나요 .. " +  folderItem.getFirstImagePath());
+            //intent.putExtra("folderPath", folderItem.getFirstImagePath()); // folderPath 라는 문자열에 폴더 이름을 담아서 화면 넘어갈 때 같이 넘김
+            intent.putExtra("folderPath", folderPath);
+            Log.d(TAG, "folderPath : " +  folderPath);
             context.startActivity(intent);
 
 //
