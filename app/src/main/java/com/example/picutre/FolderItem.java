@@ -5,6 +5,8 @@ public class FolderItem {
     private String firstImagePath; //사진 경로로 저장
     private int count;
 
+
+
     public FolderItem(String folderName, String firstImagePath, int count) {
         this.folderName =  folderName;
         this.firstImagePath = firstImagePath;

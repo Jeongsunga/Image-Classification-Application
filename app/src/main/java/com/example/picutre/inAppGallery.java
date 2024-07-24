@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.net.Uri;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +17,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-//import com.google.firebase.storage.FirebaseStorage;
-//import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 import java.util.Random;
@@ -36,9 +40,12 @@ public class inAppGallery extends AppCompatActivity {
     private  final int GALLERY_CODE = 10;
     //ImageView photo;
     private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     private static final int REQUEST_GALLERY = 1001;
     private static final int REQUEST_CODE = 1;
+
+    private Uri imageUri;
 
 
     public void onBackPressed() {
@@ -59,6 +66,7 @@ public class inAppGallery extends AppCompatActivity {
         btn_save = findViewById(R.id.btn_save);
         imageView = findViewById(R.id.imageView);
         storage=FirebaseStorage.getInstance();
+        storageReference = storage.getReference("uploads");
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +80,39 @@ public class inAppGallery extends AppCompatActivity {
                 //Toast toast = Toast.makeText(getApplicationContext(), String.valueOf(randomNum),Toast.LENGTH_SHORT);
                 //toast.show();
                 myRef.setValue(str);
+
                 Toast toast1 = Toast.makeText(getApplicationContext(), "DB에 저장되었습니다.",Toast.LENGTH_SHORT);
                 toast1.show();
+
             }
         });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                //openGallery();
+
+                Uri fileUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.busan);
+                //같은 파일 여러번 업로드 가능
+
+                StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
+
+                fileReference.putFile(fileUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast toast2 = Toast.makeText(inAppGallery.this, "Upload successful", Toast.LENGTH_SHORT);
+                                toast2.show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast toast = Toast.makeText(inAppGallery.this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        });
+
             }
         });
 

@@ -1,10 +1,16 @@
 package com.example.picutre;
 
+import static android.provider.MediaStore.MediaColumns.BUCKET_DISPLAY_NAME;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -13,20 +19,22 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Array;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GalleryList extends AppCompatActivity {
+public class GalleryList extends AppCompatActivity implements OnItemClickListener {
 
     private static final int REQUEST_PERMISSION = 100;
     private RecyclerView recyclerView;
     private FolderAdapter adapter;
     private List<FolderItem> folderItems;
+    public String firstImagePath;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,7 @@ public class GalleryList extends AppCompatActivity {
         ContentResolver contentResolver = getContentResolver();
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
-                MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+                BUCKET_DISPLAY_NAME,
                 MediaStore.Images.Media.DATA,
                 MediaStore.Images.Media.DATE_TAKEN
         };
@@ -64,8 +72,12 @@ public class GalleryList extends AppCompatActivity {
             //Map<String, Long> folderDateMap = new HashMap<>();
 
             while (cursor.moveToNext()) {
-                String folderName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
-                String firstImagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                String folderName = cursor.getString(cursor.getColumnIndexOrThrow(BUCKET_DISPLAY_NAME));
+                firstImagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+
+                String folderPath = new File(firstImagePath).getParent(); // 이미지 경로에서 폴더 경로 추출
+                Log.d(TAG, "이미지 데이터? " + folderPath);
+
                 //long dateTaken = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN));
                 if (!folderMap.containsKey(folderName)) {
                     folderMap.put(folderName, firstImagePath);
@@ -93,6 +105,58 @@ public class GalleryList extends AppCompatActivity {
 
             adapter = new FolderAdapter(folderItems);
             recyclerView.setAdapter(adapter);
+
+
         }
+    }
+
+    /*
+    private void uploadFolderToFirebase(File folder) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference();
+
+        File[] files = folder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && isImageFile(file)) {
+                    Uri fileUri = Uri.fromFile(file);
+                    StorageReference fileReference = storageReference.child("images/" + file.getName());
+
+                    fileReference.putFile(fileUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    // 업로드 성공
+                                    Log.d("Firebase", "Upload success: " + file.getName());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // 업로드 실패
+                                    Log.e("Firebase", "Upload failed: " + file.getName(), e);
+                                }
+                            });
+                }
+            }
+        }
+    }
+
+    private boolean isImageFile(File file) {
+        String[] imageExtensions = {"jpg", "jpeg", "png"};
+        for (String extension : imageExtensions) {
+            if (file.getName().toLowerCase().endsWith(extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    */
+
+    @Override
+    public void onItemClick(String folderPath) {
+        Intent intent = new Intent(GalleryList.this, LoadingScreen.class);
+        intent.putExtra("folderPath", folderPath);
+        startActivity(intent);
     }
 }
