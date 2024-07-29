@@ -1,6 +1,7 @@
 package com.example.picutre;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -80,17 +81,33 @@ public class inAppGallery extends AppCompatActivity {
             @Override
             public void onSuccess(ListResult listResult) {
                 String folderName = folderRef.getName();
-                String firstImagePath = null;
+                //String firstImagePath = null;
                 int count = listResult.getItems().size();
 
                 if (!listResult.getItems().isEmpty()) {
-                    //StorageReference firstImageRef = listResult.getItems().get(0);
-                    firstImagePath = listResult.getItems().get(0).getPath();
+                    StorageReference firstImageRef = listResult.getItems().get(0);
+                    //firstImagePath = listResult.getItems().get(0).getPath();
+                    firstImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String firstImagePath = uri.toString();
+                            StorageItem storageItem = new StorageItem(folderName, firstImagePath, count);
+                            storageItemList.add(storageItem);
+                            storageAdaptor.notifyDataSetChanged();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("MainActivity", "Failed to get download URL", e);
+                        }
+                    });
+                } else {
+                    StorageItem storageItem = new StorageItem(folderName, null, count);
+                    storageItemList.add(storageItem);
+                    storageAdaptor.notifyDataSetChanged();
                 }
 
-                StorageItem storageItem = new StorageItem(folderName, firstImagePath, count);
-                storageItemList.add(storageItem);
-                storageAdaptor.notifyDataSetChanged();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
