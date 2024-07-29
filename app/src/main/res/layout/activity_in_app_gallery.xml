@@ -8,46 +8,15 @@
     android:orientation="vertical"
     tools:context="inAppGallery">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인 앱 갤러리가 뜨는 화면입니다."
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="숫자 입력하세요"
-        android:layout_margin="50dp"
-        android:textSize="20sp"/>
-    <EditText
-        android:id="@+id/edittext_int"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="2024"
-        android:layout_marginLeft="50dp"
-        android:textSize="20sp"/>
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click"
-        android:layout_marginLeft="50dp"/>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_marginLeft="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="save"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylcerview"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        />
 
 </LinearLayout>

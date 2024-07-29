@@ -30,25 +30,10 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
 
     private List<FolderItem> folderItems;
     private Context context;
-    //private static OnItemClickListener listener;
 
     public FolderAdapter(List<FolderItem> folderItems ) {
         this.folderItems = folderItems;
     }
-
-//    public FolderAdapter(OnItemClickListener listener) {
-//        this.listener = listener;
-//    }
-
-//    public interface OnItemClickListener {
-//        void onItemClick(String folderPath);
-//    }
-
-    //public String firstImagePath;
-
-    //private static final int PICK_IMAGE_REQUEST = 1;
-    //private FirebaseStorage firebaseStorage;
-    //private StorageReference storageReference;
 
     @NonNull
     @Override
@@ -67,14 +52,9 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
         holder.count.setText(String.valueOf(folderItem.getCount()));
         Glide.with(context).load(folderItem.getFirstImagePath()).into(holder.folderImage);
 
-
-
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, LoadingScreen.class); //로딩 스크린으로 화면 이동
             String folderPath = new File(folderItem.getFirstImagePath()).getParent(); // 이미지 경로에서 폴더 경로 추출
-            //intent.putExtra("folderPath", folderItem.getFolderName());
-            //Log.d(TAG, "경로가 넘어가나요 .. " +  folderItem.getFirstImagePath());
-            //intent.putExtra("folderPath", folderItem.getFirstImagePath()); // folderPath 라는 문자열에 폴더 이름을 담아서 화면 넘어갈 때 같이 넘김
             intent.putExtra("folderPath", folderPath);
             Log.d(TAG, "folderPath : " +  folderPath);
             context.startActivity(intent);
@@ -98,17 +78,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
             folderName = itemView.findViewById(R.id.name);
             folderImage = itemView.findViewById(R.id.imageview);
             count = itemView.findViewById(R.id.count);
-/*
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAbsoluteAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && listener != null) {
-                        String folderPath = folderItems.get(position).getFolderPath();
-                        listener.onItemClick(folderPath);
-                    }
-                }
-            });*/
+
         }
 
 

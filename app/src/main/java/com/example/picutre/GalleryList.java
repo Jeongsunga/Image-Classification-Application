@@ -26,15 +26,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GalleryList extends AppCompatActivity implements OnItemClickListener {
+public class GalleryList extends AppCompatActivity  {
 
     private static final int REQUEST_PERMISSION = 100;
     private RecyclerView recyclerView;
     private FolderAdapter adapter;
     private List<FolderItem> folderItems;
     public String firstImagePath;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +108,5 @@ public class GalleryList extends AppCompatActivity implements OnItemClickListene
         }
     }
 
-    @Override
-    public void onItemClick(String folderPath) {
-        Intent intent = new Intent(GalleryList.this, LoadingScreen.class);
-        intent.putExtra("folderPath", folderPath);
-        startActivity(intent);
-    }
+
 }
