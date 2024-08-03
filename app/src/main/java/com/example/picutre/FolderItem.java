@@ -1,5 +1,6 @@
 package com.example.picutre;
-//생성자와 게터 세터를 정의한 클래스
+
+//Folder~~~ : 사용자의 스마트폰 갤러리 파일들을 가져온 것
 public class FolderItem {
     private String folderName; //폴더 이름
     private String firstImagePath; //사진 경로로 저장

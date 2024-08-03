@@ -1,4 +1,6 @@
 package com.example.picutre;
+//스마트폰의 갤러리 폴더들을 보여주는 화면
+
 
 import static android.provider.MediaStore.MediaColumns.BUCKET_DISPLAY_NAME;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
@@ -74,7 +76,7 @@ public class GalleryList extends AppCompatActivity  {
                 firstImagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
 
                 String folderPath = new File(firstImagePath).getParent(); // 이미지 경로에서 폴더 경로 추출
-                Log.d(TAG, "이미지 데이터? " + folderPath);
+                //Log.d(TAG, "이미지 데이터? " + folderPath);
 
                 //long dateTaken = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN));
                 if (!folderMap.containsKey(folderName)) {

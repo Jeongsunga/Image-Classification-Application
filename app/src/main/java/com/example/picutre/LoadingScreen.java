@@ -1,4 +1,5 @@
 package com.example.picutre;
+// 사용자가 선택한 폴더의 이미지를 파이어베이스 스토리지에 올리는 클래스
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;

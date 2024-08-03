@@ -58,8 +58,6 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderView
             intent.putExtra("folderPath", folderPath);
             Log.d(TAG, "folderPath : " +  folderPath);
             context.startActivity(intent);
-
-//
         });
     }
 

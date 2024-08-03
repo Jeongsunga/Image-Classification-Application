@@ -1,7 +1,10 @@
 package com.example.picutre;
+// 파이어베이스 스토리지에 저장되어 있는 폴더들에 관한 이벤트 수행
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.List;
 
 public class StorageAdaptor extends RecyclerView.Adapter<StorageAdaptor.StorageItemViewHolder> {
 
     private List<StorageItem> storageItemList;
+    private Context context;
 
     public StorageAdaptor(List<StorageItem> storageItemList) {
         this.storageItemList = storageItemList;
+    }
+
+    public StorageAdaptor(Context context) {
+        this.context = context;
     }
 
     @NonNull
@@ -47,6 +56,23 @@ public class StorageAdaptor extends RecyclerView.Adapter<StorageAdaptor.StorageI
         } else {
             holder.firstImageView.setImageResource(R.drawable.clover); // placeholder 이미지 설정
         }
+
+        // 사용자가 폴더를 선택했을 때, 폴더의 이름을 FirebaseStorage_images로 값을 전달
+        holder.itemView.setOnClickListener(v -> {
+
+            Context context = holder.itemView.getContext(); // Context 얻기
+            Intent intent = new Intent(context, FirebaseStorage_images.class);
+
+            String folderPath = storageItem.getFolderName2();
+            int lastSlashIndex = folderPath.lastIndexOf('/');
+            String lastSegment = folderPath.substring(lastSlashIndex + 1);
+
+            intent.putExtra("folderName", lastSegment);
+            intent.putExtra("imageCount", storageItem.getCount2());
+
+            context.startActivity(intent);
+        });
+
     }
 
     @Override

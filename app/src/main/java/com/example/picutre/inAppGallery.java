@@ -1,4 +1,5 @@
 package com.example.picutre;
+// 파이어베이스 스토리지에 있는 폴더들을 보여주는 클래스
 
 import android.content.Intent;
 import android.net.Uri;
