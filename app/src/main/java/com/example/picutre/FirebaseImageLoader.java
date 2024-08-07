@@ -30,6 +30,7 @@ public class FirebaseImageLoader {
                     imageUrls.add(uri.toString());
                     Log.d("FirebaseImageLoader", "Image URL: " + uri.toString()); // 로그 추가
                     if (imageUrls.size() == listResult.getItems().size()) {
+                        Log.d(TAG, "here?");
                         callback.onSuccess(imageUrls);
                     }
                 }).addOnFailureListener(e -> callback.onFailure(e));

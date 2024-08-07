@@ -2,6 +2,7 @@ package com.example.picutre;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +30,7 @@ public class FirebaseStorage_images extends AppCompatActivity {
     private GalleryAdaptor galleryAdaptor;
     private RequestManager glideRequestManager;
     private TextView imagecount, foldername;
+   // private Context context;
 
 
     @Override
@@ -40,8 +43,6 @@ public class FirebaseStorage_images extends AppCompatActivity {
         glideRequestManager = Glide.with(this);
         imagecount = findViewById(R.id.imageCount);
         foldername = findViewById(R.id.foldername);
-
-
 
         // Intent에서 폴더 이름을 가져옵니다.
         Intent intent = getIntent();
@@ -56,18 +57,28 @@ public class FirebaseStorage_images extends AppCompatActivity {
 
         // FirebaseImageLoader 인스턴스를 생성하면서 폴더 이름을 전달합니다.
         firebaseImageLoader = new FirebaseImageLoader(folderName);
-        Log.d(TAG, "ok!");
+
 
         firebaseImageLoader.fetchImageUrls(new FirebaseImageLoader.ImageUrlCallback() {
+            //private Context context;
+
             @Override
             public void onSuccess(List<String> urls) {
-                galleryAdaptor = new GalleryAdaptor(urls, glideRequestManager);
-                gridView.setAdapter(galleryAdaptor);
+                if(urls.isEmpty()) {
+                    Log.d(TAG, "url이 null값 입니다.");
+                }
+                else {
+                    Log.d(TAG, "the problem of the adaptor");
+                    galleryAdaptor = new GalleryAdaptor(FirebaseStorage_images.this, urls, glideRequestManager);
+                    gridView.setAdapter(galleryAdaptor);
+                    Log.d(TAG, "ok!");
+                }
+
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                Toast.makeText(FirebaseStorage_images.this, "Failed to load images", Toast.LENGTH_SHORT).show();
             }
         });
 

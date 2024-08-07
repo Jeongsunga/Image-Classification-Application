@@ -1,6 +1,9 @@
 package com.example.picutre;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,35 +16,18 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.RequestManager;
 
 import java.util.List;
-public class GalleryAdaptor implements ListAdapter {
+public class GalleryAdaptor extends BaseAdapter {
 
     private List<String> imageUrls;
     private RequestManager glideRequestManager;
     private LayoutInflater inflater;
+    private Context context;
 
-    public GalleryAdaptor(List<String> imageUrls, RequestManager glideRequestManager){
+    public GalleryAdaptor(Context context, List<String> imageUrls, RequestManager glideRequestManager){
         this.imageUrls = imageUrls;
         this.glideRequestManager = glideRequestManager;
-    }
-
-    public GalleryAdaptor(Context context) {
-        this.inflater = inflater.from(context);
-    }
-
-    public List<String> getImageUrls() {
-        return imageUrls;
-    }
-
-    public void setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
-    }
-
-    public RequestManager getGlideRequestManager() {
-        return glideRequestManager;
-    }
-
-    public void setGlideRequestManager(RequestManager glideRequestManager) {
-        this.glideRequestManager = glideRequestManager;
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -74,10 +60,14 @@ public class GalleryAdaptor implements ListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
+            // 컨버트뷰 부터 문제가 있는듯 로그가 안떠!!
+            Log.d(TAG, "convertview?");
             convertView = inflater.inflate(R.layout.grid_item, parent, false);
+
             imageView = convertView.findViewById(R.id.imageView);
             convertView.setTag(imageView);
         } else {
+            Log.d(TAG, "진심 우뜨콰라고");
             imageView = (ImageView) convertView.getTag();
         }
 
@@ -101,11 +91,6 @@ public class GalleryAdaptor implements ListAdapter {
         return false;
     }
 
-    @Nullable
-    @Override
-    public CharSequence[] getAutofillOptions() {
-        return ListAdapter.super.getAutofillOptions();
-    }
 
     @Override
     public boolean areAllItemsEnabled() {
