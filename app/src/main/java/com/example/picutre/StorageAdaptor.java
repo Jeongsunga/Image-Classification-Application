@@ -2,6 +2,7 @@ package com.example.picutre;
 // 파이어베이스 스토리지에 저장되어 있는 폴더들에 관한 이벤트 수행
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,17 +44,16 @@ public class StorageAdaptor extends RecyclerView.Adapter<StorageAdaptor.StorageI
 
     @Override
     public void onBindViewHolder(@NonNull StorageItemViewHolder holder, int position) {
+
         StorageItem storageItem = storageItemList.get(position);
         holder.folderNameTextView.setText(storageItem.getFolderName2());
         holder.countTextView.setText(String.valueOf(storageItem.getCount2()));
-
-
-        //holder.firstImageView.setImageResource(R.drawable.directory); // placeholder 이미지 설정
+        
         if (storageItem.getFirstImagePath2() != null) {
             Glide.with(holder.itemView.getContext())
                     .load(storageItem.getFirstImagePath2())
                     .into(holder.firstImageView);
-            Log.e(TAG, "이미지의 경로 : ");
+
         } else {
             holder.firstImageView.setImageResource(R.drawable.clover); // placeholder 이미지 설정
         }

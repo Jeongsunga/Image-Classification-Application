@@ -60,14 +60,14 @@ public class GalleryAdaptor extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
-            // 컨버트뷰 부터 문제가 있는듯 로그가 안떠!!
-            Log.d(TAG, "convertview?");
+
+
             convertView = inflater.inflate(R.layout.grid_item, parent, false);
 
             imageView = convertView.findViewById(R.id.imageView);
             convertView.setTag(imageView);
         } else {
-            Log.d(TAG, "진심 우뜨콰라고");
+
             imageView = (ImageView) convertView.getTag();
         }
 
