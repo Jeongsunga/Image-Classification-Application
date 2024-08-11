@@ -2,6 +2,7 @@ package com.example.picutre;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.RequestManager;
 
+import java.util.ArrayList;
 import java.util.List;
 public class GalleryAdaptor extends BaseAdapter {
 
@@ -60,16 +62,19 @@ public class GalleryAdaptor extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if (convertView == null) {
-
-
             convertView = inflater.inflate(R.layout.grid_item, parent, false);
-
             imageView = convertView.findViewById(R.id.imageView);
             convertView.setTag(imageView);
-        } else {
+        } else imageView = (ImageView) convertView.getTag();
 
-            imageView = (ImageView) convertView.getTag();
-        }
+        imageView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ImageOne.class);
+            intent.putStringArrayListExtra("imageUrls", new ArrayList<>(imageUrls));
+            intent.putExtra("position", position); // 클릭된 이미지의 위치 전달
+            //intent.putExtra("imageUrl", imageUrls.get(position));
+            context.startActivity(intent);
+        });
+
 
         String imageUrl = imageUrls.get(position);
         glideRequestManager.load(imageUrl).into(imageView); // 이미지 로드
