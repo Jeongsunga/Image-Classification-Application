@@ -13,7 +13,11 @@ import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +36,7 @@ public class FirebaseStorage_images extends AppCompatActivity {
     private TextView imagecount, foldername;
    // private Context context;
 
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class FirebaseStorage_images extends AppCompatActivity {
         glideRequestManager = Glide.with(this);
         imagecount = findViewById(R.id.imageCount);
         foldername = findViewById(R.id.foldername);
+        imageButton = findViewById(R.id.btn_menu);
 
         // Intent에서 폴더 이름을 가져옵니다.
         Intent intent = getIntent();
@@ -79,6 +85,24 @@ public class FirebaseStorage_images extends AppCompatActivity {
             @Override
             public void onFailure(Exception e) {
                 Toast.makeText(FirebaseStorage_images.this, "Failed to load images", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(FirebaseStorage_images.this, imageButton);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(FirebaseStorage_images.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
             }
         });
 

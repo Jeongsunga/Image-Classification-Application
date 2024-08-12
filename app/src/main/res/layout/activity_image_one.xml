@@ -8,27 +8,12 @@
     tools:context=".ImageOne"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/back"
-            android:scaleType="fitCenter"
-            android:background="@android:color/transparent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"></ImageButton>
-        
-    </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="600dp"
         android:layout_marginTop="10dp"
         android:scaleType="fitCenter"
         android:layout_marginBottom="10dp">

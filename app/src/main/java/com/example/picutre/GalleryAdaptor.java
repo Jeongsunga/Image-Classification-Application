@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -71,8 +73,15 @@ public class GalleryAdaptor extends BaseAdapter {
             Intent intent = new Intent(context, ImageOne.class);
             intent.putStringArrayListExtra("imageUrls", new ArrayList<>(imageUrls));
             intent.putExtra("position", position); // 클릭된 이미지의 위치 전달
-            //intent.putExtra("imageUrl", imageUrls.get(position));
             context.startActivity(intent);
+        });
+
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(context, "long click", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         });
 
 

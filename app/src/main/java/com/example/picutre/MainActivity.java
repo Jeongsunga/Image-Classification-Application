@@ -113,35 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .show();
     }
-/*
-    private void showDialogAutomatically() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        if(permission == 0) {
-            builder.setTitle("권한 허용");
-            builder.setMessage("해당 앱에서 기기의 사진 및 미디어에 접근을 허용하시겠습니까?");
-            builder.setIcon(R.mipmap.ic_launcher);
-            builder.setCancelable(false); // 뒤로가기 버튼으로 다이얼로그 종료 못함
-            builder.setPositiveButton("허용", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    permission = 1;
-                    dialog.dismiss();
-                    //미디어 허용 하는 코드 작성
-                    requestMediaPermissions();
-                }
-            });
-            builder.setNegativeButton("거부", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    ActivityCompat.finishAffinity(MainActivity.this);
-                    System.exit(0);
-                }
-            });
-            AlertDialog dialog = builder.create();
-            builder.show();
-        }
-    }*/
 
     private void requestMediaPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
