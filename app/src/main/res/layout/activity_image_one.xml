@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ImageOne"
     android:orientation="vertical">
-
-
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
@@ -20,19 +18,18 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 
-    <ImageView
-        android:id="@+id/oneImage"
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_marginTop="10dp"
-        android:scaleType="fitCenter"
-        android:layout_marginBottom="10dp"
-        android:visibility="gone"></ImageView>
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <ImageButton
             android:id="@+id/btn_heart"
@@ -75,4 +72,4 @@
             android:layout_marginLeft="55dp"></ImageButton>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

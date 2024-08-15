@@ -1,20 +1,21 @@
 package com.example.picutre;
+// 폴더 이름, 사진 장 수, 사진이 3장씩 보이는 화면에서 사진 하나를 선택하면
+// 사진 한 장만 보이도록 하는데 도와주는 어댑터 클래스
+
+import static android.content.Intent.getIntent;
+
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.RequestManager;
 
@@ -73,6 +74,7 @@ public class GalleryAdaptor extends BaseAdapter {
             Intent intent = new Intent(context, ImageOne.class);
             intent.putStringArrayListExtra("imageUrls", new ArrayList<>(imageUrls));
             intent.putExtra("position", position); // 클릭된 이미지의 위치 전달
+            intent.putExtra("selectImageUrl", imageUrls.get(position)); //이미지 리스트 중 사용자가 선택한 이미지의 링크만
             context.startActivity(intent);
         });
 

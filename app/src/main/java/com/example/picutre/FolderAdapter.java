@@ -1,13 +1,9 @@
 package com.example.picutre;
+// 사용자의 갤러리 요소들을 보여주는데 사용되는 어댑터 클래스
 
-import static android.provider.MediaStore.MediaColumns.BUCKET_DISPLAY_NAME;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +14,11 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.List;
-
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.FolderViewHolder> {
 

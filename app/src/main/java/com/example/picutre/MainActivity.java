@@ -1,5 +1,5 @@
 package com.example.picutre;
-
+// 앱을 처음 켜면 보이는 액티비티
 
 import android.content.DialogInterface;
 import android.content.Intent;

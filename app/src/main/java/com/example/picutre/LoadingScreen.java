@@ -2,40 +2,37 @@ package com.example.picutre;
 // 사용자가 선택한 폴더의 이미지를 파이어베이스 스토리지에 올리는 클래스
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.media.ExifInterface;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.MediaStore;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.webkit.MimeTypeMap;
+
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.UploadTask;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.loader.content.CursorLoader;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class LoadingScreen extends AppCompatActivity {
 
@@ -60,6 +57,7 @@ public class LoadingScreen extends AppCompatActivity {
         //권한 요청 코드
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "권한요청");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
@@ -67,6 +65,8 @@ public class LoadingScreen extends AppCompatActivity {
         folderPath = getIntent().getStringExtra("folderPath");
         if (folderPath != null) {
             uploadImages(folderPath);
+            //String dateTime = takeMetadata(folderPath);
+            //Log.d(TAG, "dateTime : "+dateTime);
 
         }
 
@@ -104,7 +104,7 @@ public class LoadingScreen extends AppCompatActivity {
     private void showDialogAutomatically() {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoadingScreen.this);
         //builder.setTitle("권한 허");
-        builder.setMessage("분류가 완료되었습니다.\n분류 결과를 확인하시겠습니까?");
+        builder.setMessage("분류가 완료되었습니다. 분류 결과를 확인 하시겠습니까?");
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setCancelable(false); // 뒤로가기 버튼으로 다이얼로그 종료 못함
         builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
@@ -142,7 +142,7 @@ public class LoadingScreen extends AppCompatActivity {
 
     private void uploadImages(String folderPath) {
         File folder = new File(folderPath);
-        Log.d(TAG, "folderPath" + folder);
+
 
         // 디렉터리 존재 여부 확인
         if (!folder.exists() || !folder.isDirectory()) {
@@ -154,7 +154,8 @@ public class LoadingScreen extends AppCompatActivity {
         if (files != null) { //파일이 널이 아니면 아래 실행
             for (File file : files) {
                 if (file.isFile() && isImageFile(file.getName())) {
-                    uploadImageToFirebase(file);
+
+                    uploadImageToFirebase(this, file);
                 }
             }
         }else {
@@ -172,9 +173,44 @@ public class LoadingScreen extends AppCompatActivity {
         return false;
     }
     
-    private void uploadImageToFirebase(File file) {
+    private void uploadImageToFirebase(Context context, File file) {
 
         Uri fileUri = Uri.fromFile(file);
+        String datatime = null;
+        String cameraModel = null;
+        String flashMode = null;
+        String manufacturer = null;
+        String owner = null;
+        String gps = null;
+//        long fileSizeInBytes = file.length();
+//        String fileSizeString = formatFileSize(fileSizeInBytes);
+
+        try {
+            InputStream inputStream = context.getContentResolver().openInputStream(fileUri);
+            ExifInterface exif = new ExifInterface(inputStream);
+
+            datatime = exif.getAttribute(ExifInterface.TAG_DATETIME);
+            cameraModel = exif.getAttribute(ExifInterface.TAG_MODEL);
+            flashMode = exif.getAttribute(ExifInterface.TAG_FLASH);
+            manufacturer = exif.getAttribute(ExifInterface.TAG_MAKE);
+            owner = exif.getAttribute(ExifInterface.TAG_ARTIST);
+            gps = exif.getAttribute(ExifInterface.TAG_GPS_AREA_INFORMATION);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG, "IOException 발생", e);
+        }
+
+        String extension = MimeTypeMap.getFileExtensionFromUrl(fileUri.toString());
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                .setContentType("image/" + extension) // 이미지의 MIME 타입 설정
+                .setCustomMetadata("DateTime", datatime) // 사용자 정의 메타데이터 추가
+                .setCustomMetadata("CameraModel", cameraModel)
+                .setCustomMetadata("FlashMode", flashMode)
+                .setCustomMetadata("Manufacturer", manufacturer)
+                .setCustomMetadata("GPS", gps)
+                .build();
 
         String folderName = file.getParent().toString();
         int lastSlashIndex = folderName.lastIndexOf('/');
@@ -187,9 +223,10 @@ public class LoadingScreen extends AppCompatActivity {
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading...");
-//        progressDialog.show();
 
-        UploadTask uploadTask = fileReference.putFile(fileUri);
+        // 파이어베이스 스토리지에 파일을 올리는 코드, 각 이미지 파일 경로가 나옴
+        UploadTask uploadTask = fileReference.putFile(fileUri, metadata);
+        Log.d(TAG, "File URL : " + fileUri);
 
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             progressDialog.dismiss();
@@ -201,6 +238,20 @@ public class LoadingScreen extends AppCompatActivity {
             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
             progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
         });
+
+
+    }
+
+    public static String formatFileSize(long bytes) {
+        if (bytes >= 1073741824) { // 1 GB = 2^30 bytes
+            return String.format("%.2f GB", bytes / 1073741824.0);
+        } else if (bytes >= 1048576) { // 1 MB = 2^20 bytes
+            return String.format("%.2f MB", bytes / 1048576.0);
+        } else if (bytes >= 1024) { // 1 KB = 2^10 bytes
+            return String.format("%.2f KB", bytes / 1024.0);
+        } else {
+            return String.format("%d bytes", bytes);
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -32,13 +33,30 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        //holder.imageView.setImageResource(imagesInfo.get(position));
         String imageUrl = imageUrls.get(position);
         Glide.with(context)
                 .load(imageUrl)
                 .placeholder(R.drawable.clover)
                 .error(R.drawable.nwh28)
                 .into(holder.imageView);
+
+//        holder.btn_heart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        holder.btn_info.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -47,10 +65,13 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
     static class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
+        //ImageButton btn_heart, btn_info;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+//            btn_heart = itemView.findViewById(R.id.btn_heart);
+//            btn_info = itemView.findViewById(R.id.btn_info);
         }
     }
 }

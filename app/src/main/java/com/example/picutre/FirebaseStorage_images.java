@@ -1,4 +1,6 @@
 package com.example.picutre;
+// 파이어베이스 스토리지의 폴더들 중에 사용자가 하나를 선택하면
+// 폴더 이름, 사진 장 수, 사진들을 보여주는 액티비티
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
