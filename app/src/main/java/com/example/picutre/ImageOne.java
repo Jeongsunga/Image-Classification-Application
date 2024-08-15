@@ -48,10 +48,10 @@ public class ImageOne extends AppCompatActivity {
         // Firebase Storage 인스턴스 초기화
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        String refImageUrl = extractReferencePath(selectImageUrl);
-        Log.d(TAG, "참조 경로 : " + refImageUrl);
+        //String refImageUrl = extractReferencePath(selectImageUrl);
+        //Log.d(TAG, "참조 경로 : " + refImageUrl);
         // 스토리지에서 삭제할 파일의 참조를 가져옵니다. 파일 경로는 Firebase Storage의 참조경로를 사용합니다.
-        StorageReference storageRef = storage.getReference().child(refImageUrl);
+        //StorageReference storageRef = storage.getReference().child(refImageUrl);
 
         viewPager = findViewById(R.id.viewPager);
         adapter = new ImageSliderAdapter(imageUrls, ImageOne.this, "");
@@ -60,46 +60,55 @@ public class ImageOne extends AppCompatActivity {
         // 처음 표시할 이미지 설정
         viewPager.setCurrentItem(initialPosition);
 
-        storageRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onSuccess(StorageMetadata metadata) {
-                // 메타데이터가 성공적으로 가져온 경우
-                String name = metadata.getName(); // 파일 이름
-                String path = metadata.getPath(); // 파일 경로
-                //String contentType = metadata.getContentType(); // 콘텐츠 타입
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                selectImageUrl = imageUrls.get(position);
+                String refImageUrl = extractReferencePath(selectImageUrl);
+                Log.d(TAG, "참조 경로 : " + refImageUrl);
+                StorageReference storageRef = storage.getReference().child(refImageUrl);
 
-                long sizeBytes = metadata.getSizeBytes(); // 파일 크기 (바이트 단위)
-                String volume = formatFileSize(sizeBytes); // 사용자가 읽기 편한 단위로 변환
+                storageRef.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                    @Override
+                    public void onSuccess(StorageMetadata metadata) {
+                        // 메타데이터가 성공적으로 가져온 경우
+                        String name = metadata.getName(); // 파일 이름
+                        String path = metadata.getPath(); // 파일 경로
+                        //String contentType = metadata.getContentType(); // 콘텐츠 타입
 
-                String dateTaken = metadata.getCustomMetadata("DateTime");  // 사진 촬영 날짜
-                String cameraModel = metadata.getCustomMetadata("CameraModel"); // 사진 촬영 카메라 모델
+                        long sizeBytes = metadata.getSizeBytes(); // 파일 크기 (바이트 단위)
+                        String volume = formatFileSize(sizeBytes); // 사용자가 읽기 편한 단위로 변환
 
-                String flashMode = metadata.getCustomMetadata("FlashMode"); // 사진 촬영시 플래시 코드
-                if(flashMode.equals("0")) flashMode = "플래시 끔";
-                else flashMode = "플래시 켬";
+                        String dateTaken = metadata.getCustomMetadata("DateTime");  // 사진 촬영 날짜
+                        String cameraModel = metadata.getCustomMetadata("CameraModel"); // 사진 촬영 카메라 모델
 
-                String manufacturer = metadata.getCustomMetadata("Manufacturer"); // 카메라 제조사
-                String gps = metadata.getCustomMetadata("Gps"); // 사진 촬영 위치
+                        String flashMode = metadata.getCustomMetadata("FlashMode"); // 사진 촬영시 플래시 코드
+                        if(flashMode.equals("0")) flashMode = "플래시 끔";
+                        else flashMode = "플래시 켬";
 
-                // GPS값만 null이 뜸
-                Log.d(TAG, "imageGPS : " + gps);
+                        String manufacturer = metadata.getCustomMetadata("Manufacturer"); // 카메라 제조사
+                        String gps = metadata.getCustomMetadata("Gps"); // 사진 촬영 위치
 
-                metadataList = "파일 이름 : " + name + "\n사진 크기 : " + volume +
-                        "\n\n촬영 시간 : " + dateTaken + "\n카메라 제조사 : " + manufacturer + "\n카메라 모델 : " + cameraModel
-                        + "\n플래시 모드 : " + flashMode;
+                        // GPS값만 null이 뜸
+                        Log.d(TAG, "imageGPS : " + gps);
 
-                adapter.updateMetadata(metadataList);
+                        metadataList = "파일 이름 : " + name + "\n사진 크기 : " + volume +
+                                "\n\n촬영 시간 : " + dateTaken + "\n카메라 제조사 : " + manufacturer + "\n카메라 모델 : " + cameraModel
+                                + "\n플래시 모드 : " + flashMode;
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // 메타데이터 가져오기 실패 시
-                Log.e(TAG, "Error getting metadata", exception);
+                        adapter.updateMetadata(metadataList);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // 메타데이터 가져오기 실패 시
+                        Log.e(TAG, "Error getting metadata", exception);
+                    }
+                });
             }
         });
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -136,7 +145,5 @@ public class ImageOne extends AppCompatActivity {
             return String.format("%d bytes", bytes);
         }
     }
-
-
 
 }
