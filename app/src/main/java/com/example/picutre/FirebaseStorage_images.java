@@ -36,7 +36,6 @@ public class FirebaseStorage_images extends AppCompatActivity {
     private GalleryAdaptor galleryAdaptor;
     private RequestManager glideRequestManager;
     private TextView imagecount, foldername;
-   // private Context context;
 
     private ImageButton imageButton;
 
