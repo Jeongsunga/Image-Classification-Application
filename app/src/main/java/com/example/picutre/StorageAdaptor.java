@@ -2,7 +2,6 @@ package com.example.picutre;
 // 파이어베이스 스토리지에 저장되어 있는 폴더들에 관한 이벤트 수행
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
 import java.util.List;
 
 public class StorageAdaptor extends RecyclerView.Adapter<StorageAdaptor.StorageItemViewHolder> {
@@ -48,15 +49,17 @@ public class StorageAdaptor extends RecyclerView.Adapter<StorageAdaptor.StorageI
         StorageItem storageItem = storageItemList.get(position);
         holder.folderNameTextView.setText(storageItem.getFolderName2());
         holder.countTextView.setText(String.valueOf(storageItem.getCount2()));
-        
-        if (storageItem.getFirstImagePath2() != null) {
-            Glide.with(holder.itemView.getContext())
-                    .load(storageItem.getFirstImagePath2())
-                    .into(holder.firstImageView);
 
-        } else {
-            holder.firstImageView.setImageResource(R.drawable.clover); // placeholder 이미지 설정
-        }
+                if (storageItem.getFirstImagePath2() != null) {
+                    
+                    Glide.with(holder.itemView.getContext())
+                            .load(storageItem.getFirstImagePath2())
+                            .into(holder.firstImageView);
+
+                }else {
+                    holder.firstImageView.setImageResource(R.drawable.clover); // placeholder 이미지 설정
+                    //holder.folderNameTextVciew.setText("파이어베이스 스토리지에 저장된 데이터가 없습니다.");
+                }
 
         // 사용자가 폴더를 선택했을 때, 폴더의 이름을 FirebaseStorage_images로 값을 전달
         holder.itemView.setOnClickListener(v -> {

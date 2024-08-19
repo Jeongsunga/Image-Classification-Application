@@ -1,9 +1,11 @@
 package com.example.picutre;
-
+// FirebaseStorage_images에서 이미지를 하나 선택하면
+// 큰 화면에 사진 한장만 보이는 화면(4번 화면)
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.activity.EdgeToEdge;
@@ -32,7 +34,7 @@ public class ImageOne extends AppCompatActivity {
     private ImageSliderAdapter adapter;
     private List<String> imageUrls;
     private int initialPosition;
-    public String selectImageUrl, metadataList;
+    public String selectImageUrl, metadataList, oneImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class ImageOne extends AppCompatActivity {
         //StorageReference storageRef = storage.getReference().child(refImageUrl);
 
         viewPager = findViewById(R.id.viewPager);
-        adapter = new ImageSliderAdapter(imageUrls, ImageOne.this, "");
+        adapter = new ImageSliderAdapter(imageUrls, ImageOne.this, ""/*, ""*/);
         viewPager.setAdapter(adapter);
 
         // 처음 표시할 이미지 설정
@@ -93,7 +95,7 @@ public class ImageOne extends AppCompatActivity {
                         // GPS값만 null이 뜸
                         Log.d(TAG, "imageGPS : " + gps);
 
-                        metadataList = "파일 이름 : " + name + "\n사진 크기 : " + volume +
+                        metadataList = "폴더/파일 이름 : " + path + "\n사진 크기 : " + volume +
                                 "\n\n촬영 시간 : " + dateTaken + "\n카메라 제조사 : " + manufacturer + "\n카메라 모델 : " + cameraModel
                                 + "\n플래시 모드 : " + flashMode;
 
@@ -107,6 +109,8 @@ public class ImageOne extends AppCompatActivity {
                         Log.e(TAG, "Error getting metadata", exception);
                     }
                 });
+
+                //adapter.updateRefImageUrl(refImageUrl);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.picutre;
-//스마트폰의 갤러리 폴더들을 보여주는 화면
+//스마트폰의 갤러리 폴더들을 보여주는 화면(3번 화면)
+// 이 화면에서 사용자가 분류할 이미지 폴더를 선택한다.
 
 
 import static android.provider.MediaStore.MediaColumns.BUCKET_DISPLAY_NAME;

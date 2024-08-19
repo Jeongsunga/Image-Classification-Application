@@ -1,4 +1,5 @@
 package com.example.picutre;
+// 사용자가 분류하고자 하는 방식을 정하는 화면(2번)
 
 import android.content.Intent;
 import android.net.Uri;
@@ -62,6 +63,8 @@ public class Filter extends AppCompatActivity {
                 2. 얼굴 보이기 & 눈 뜨기
                 3. 날짜
                 4. 위치
+
+                사용자가 선택한 분류 방식에 따라 서버에 다른 값을 넘겨주어 분류 파이썬 코드를 돌아가게 한다.
                  */
                 if(chbox_faceOpen.isChecked() == true && (chbox_locate.isChecked() == true || chbox_hopeDate.isChecked() == true)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "필터를 한 가지만 선택해 주세요.",Toast.LENGTH_SHORT);

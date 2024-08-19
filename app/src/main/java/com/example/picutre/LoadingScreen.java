@@ -1,5 +1,6 @@
 package com.example.picutre;
-// 사용자가 선택한 폴더의 이미지를 파이어베이스 스토리지에 올리는 클래스
+// 사용자가 선택한 폴더의 이미지를 파이어베이스 스토리지에 올리는 클래스(4번 화면)
+// 파이어베이스 스토리지에 이미지 업로드가 완료됐을 경우 사용자에게 다이얼로그로 완료됨을 알림
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -113,6 +114,8 @@ public class LoadingScreen extends AppCompatActivity {
                 dialog.dismiss();
                 Intent intent = new Intent(LoadingScreen.this, inAppGallery.class);
                 startActivity(intent);
+                // 실제 파이어베이스 스토리지에서 결과를 반영하고 휴대폰으로 결과를 확인하는데 시간이 걸리므로
+                // 바로 들어가면 확인할 수 없음
             }
         });
         builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {

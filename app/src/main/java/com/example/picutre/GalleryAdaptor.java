@@ -73,6 +73,7 @@ public class GalleryAdaptor extends BaseAdapter {
         imageView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ImageOne.class);
             intent.putStringArrayListExtra("imageUrls", new ArrayList<>(imageUrls));
+            Log.d(TAG, "imagesUrl list[] : " + imageUrls);
             intent.putExtra("position", position); // 클릭된 이미지의 위치 전달
             intent.putExtra("selectImageUrl", imageUrls.get(position)); //이미지 리스트 중 사용자가 선택한 이미지의 링크만
             context.startActivity(intent);

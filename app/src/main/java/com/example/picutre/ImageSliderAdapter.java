@@ -11,12 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -25,18 +30,24 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     private List<String> imageUrls;
     private Context context;
     private boolean isImageOne = true;
-    private String metadataList;
+    private String metadataList/*, oneImageUrl*/;
 
-    public ImageSliderAdapter(List<String> imageUrls, Context context, String metadataList) {
+    public ImageSliderAdapter(List<String> imageUrls, Context context, String metadataList/*, String oneImageUrl*/) {
         this.imageUrls = imageUrls;
         this.context = context;
         this.metadataList = metadataList;
+        //this.oneImageUrl = oneImageUrl;
     }
 
     public void updateMetadata(String metadataList) {
         this.metadataList = metadataList;
         notifyDataSetChanged(); // Adapter에 데이터가 변경되었음을 알림
     }
+
+//    public void updateRefImageUrl(String oneImageUrl) {
+//        this.oneImageUrl = oneImageUrl;
+//        notifyDataSetChanged();
+//    }
 
     @NonNull
     @Override
@@ -118,7 +129,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
                 .setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        //Log.d(TAG, "Download Link : " + imageUrls.get(position));
                     }
                 })
                 .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
@@ -136,7 +147,20 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
                 .setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+//                        FirebaseStorage storage = FirebaseStorage.getInstance();
+//                        StorageReference storageRef = storage.getReferenceFromUrl(oneImageUrl);
+//
+//                        storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void unused) {
+//                                Toast.makeText(context, "이미지가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(context, "이미지 삭제 실패", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
                     }
                 })
                 .setNegativeButton("아니요", new DialogInterface.OnClickListener() {

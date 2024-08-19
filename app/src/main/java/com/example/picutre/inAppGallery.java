@@ -1,5 +1,5 @@
 package com.example.picutre;
-// 파이어베이스 스토리지에 있는 폴더들을 보여주는 클래스
+// 파이어베이스 스토리지에 있는 폴더들을 보여주는 클래스(2번 화면)
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -40,7 +40,7 @@ import java.util.Random;
 public class inAppGallery extends AppCompatActivity {
 
     private ImageButton imageButton;
-    private TextView textView;
+    //private TextView nodatatextView;
     private RecyclerView recyclerView;
     private StorageAdaptor storageAdaptor;
     private List<StorageItem> storageItemList;
@@ -54,7 +54,7 @@ public class inAppGallery extends AppCompatActivity {
         recyclerView = findViewById(R.id.recylcerview);
         imageButton = findViewById(R.id.btn_menu);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        textView = findViewById(R.id.noData);
+        //nodatatextView = findViewById(R.id.noData);
 
         storageItemList = new ArrayList<>();
         storageAdaptor = new StorageAdaptor(storageItemList);
