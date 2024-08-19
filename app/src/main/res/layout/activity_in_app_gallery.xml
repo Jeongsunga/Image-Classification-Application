@@ -20,8 +20,6 @@
         android:background="@android:color/transparent">
     </ImageButton>
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylcerview"
         android:scrollbarFadeDuration="0"
