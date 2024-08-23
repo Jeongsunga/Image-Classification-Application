@@ -7,4 +7,3 @@ class DBModule:
             config = json.load(f)
 
         self.firebase = pyrebase.initialize_app(config)
-        self.db = firebase.database()
