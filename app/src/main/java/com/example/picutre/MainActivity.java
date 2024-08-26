@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.7.10:5000/")  // 로컬 호스트 주소
+                .baseUrl("http://192.168.35.139:5000/")  // 로컬 호스트 주소
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         btn_sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendDataToServer();
+                sendDataToServer(); //앱과 서버가 연결되어 있는지 확인할 수 있는 간단한 코드
                 Intent intent = new Intent(MainActivity.this, Filter.class);
                 startActivity(intent);
             }

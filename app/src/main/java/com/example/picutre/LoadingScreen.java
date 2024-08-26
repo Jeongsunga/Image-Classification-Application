@@ -65,7 +65,7 @@ public class LoadingScreen extends AppCompatActivity {
 
         folderPath = getIntent().getStringExtra("folderPath");
         if (folderPath != null) {
-            uploadImages(folderPath);
+            //uploadImages(folderPath); 파이어베이스로 직접 업로드하는 코드
             //String dateTime = takeMetadata(folderPath);
             //Log.d(TAG, "dateTime : "+dateTime);
 
@@ -145,7 +145,6 @@ public class LoadingScreen extends AppCompatActivity {
 
     private void uploadImages(String folderPath) {
         File folder = new File(folderPath);
-
 
         // 디렉터리 존재 여부 확인
         if (!folder.exists() || !folder.isDirectory()) {
